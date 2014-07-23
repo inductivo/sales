@@ -1,0 +1,113 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
+
+/*1.- AGREGAR EMPRESA*/
+
+.myform{
+	margin-bottom: 18%;
+}
+
+.myform .span3{
+	text-align: center;
+}
+
+.myform .input_txt{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+
+}
+
+.myform .btnform{
+	margin-bottom: 2%;
+}
+
+.myform .pbtn{
+	margin: 1% 2%;
+}
+
+.myform .caja-error{
+	width: 50%;
+	text-align: center;
+	margin: 2% 22%;
+}
+
+/*2.- AGREGAR GRUPOS*/
+
+.myform-grupos{
+	margin-bottom: 10%;
+}
+
+.myform-grupos .span3{
+	text-align: center;
+}
+
+.myform-grupos .input_txt{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+
+}
+
+.myform-grupos .btnform{
+	margin-bottom: 2%;
+}
+
+.myform-grupos .btntxt{
+	margin-bottom: 1.5%;
+}
+
+.myform-grupos .pbtn{
+	margin: 1% 2%;
+}
+
+.myform-grupos .caja-error{
+	width: 50%;
+	text-align: center;
+	margin: 2% 22%;
+}
+
+.myform-grupos .btn-number{
+	height: 30px;
+}
+
+.myform-grupos .lista{
+	margin-bottom: 3%;
+
+}
+
+
+th.th-tabla{
+	text-align: center;
+	font-family: 'Roboto Condensed', sans-serif;
+	}
+
+td.td-tabla1{
+	text-align: center;
+	font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+td.td-tabla2{
+	text-align: center;
+}
+
+thead.mithead{
+	background-color: whitesmoke;
+}
+
+.span-center{
+	margin: 0 0;
+}
+
+
+body .zonahoraria {
+	margin-left: 4%;
+	width: 326px;
+
+}
+
+

@@ -1,0 +1,89 @@
+
+
+	
+	.cuerpo{
+		margin: 60px 60px 60px 60px;
+		background-color: #fff;
+	}
+
+
+	.myform{
+
+		background-color: #fff;
+		border-radius: 0.5em;
+		max-width: 330px;
+		margin: 0 auto;		
+		padding: 15px;
+		text-align: center;
+		
+	}
+
+
+	.myform .titulo{
+		font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+		font-size: 36px;
+		margin-bottom: 40px;
+		text-align: center;
+		font-weight: 500;
+
+	}
+
+	
+	.myform .form-control{
+		color: gray;
+		position: relative;
+		height: auto;
+		padding: 10px;
+  		font-size: 16px;
+  	}
+
+  	
+  
+	body .myform .add-on{
+		color: #C0C0C0;
+		padding: 10px;
+
+	}
+
+	body .myform .add-on .fa{
+		line-height: 1em;
+	}
+
+	.myform .errores{
+		width: 19%;
+	}
+	
+	.myform input[type="text"]{
+		margin-bottom: -1px;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	.myform input[type="password"]{
+		margin-bottom: 10px;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	
+	body .myform .btn{
+		color:white;
+		font-family: Helvetica, Arial, "Lucida Grande", sans-serif; 
+		font-size: 16px;
+		height: auto;
+		position: relative;
+		width: 245px;		
+
+	}	
+	
+	.pie{
+		text-align: center;
+		margin: 10% auto;
+	}
+		
+	.pie p{
+
+		display: inline-block;
+		font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+		font-size: 18px;
+	}
+
+	
