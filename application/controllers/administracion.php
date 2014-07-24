@@ -316,17 +316,24 @@ class Administracion extends CI_Controller {
 			redirect('administracion/acceso_denegado');
 		}else{
 
-			$id_empresa = $this->model_administracion->buscar_empresa();
+			$empresa = $this->model_administracion->buscar_empresa();
 			$data['contenido'] = 'administracion/agregar_usuarios';
 			$data['titulo'] = 'Panel de Control';
 			$data['empresa'] = $this->model_administracion->buscar_empresa();
 			$data['paises'] = $this->model_administracion->obtener_paises();
 			$data['estados'] = $this->model_administracion->obtener_estados();
-			$data['grupos'] = $this->model_administracion->mostrar_grupos_dropdown($id_empresa);
+			$data['grupos'] = $this->model_administracion->mostrar_grupos($empresa->id_empresas);
 			$this->load->view('templates/template_administracion',$data);
 
 		}
 
+	}
+
+	public function cargar_perfiles()
+	{
+		$id_grupo = $this->input->get('id');
+
+		$this->model_administracion->devolver_perfiles($id_grupo);
 	}
 
 

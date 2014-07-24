@@ -119,6 +119,20 @@ class Model_Administracion extends CI_Model{
 
     }
 
+    //Esta función nos muestra los perfiles para cargarlos dependiendo del grupo que seleccionamos
+    function devolver_perfiles($id_grupo)
+    {
+        $query = $this->db->where('id_grupos',$id_grupo)->get('perfiles');
+        
+        $cadena = "";
+
+        foreach($query->result_array() as $registro)
+        {
+            $cadena.="<option value = '{$registro['id_perfiles']}'>{$registro['perfil']}</option>";
+        }
+            echo $cadena;
+    }
+
      //Busca el perfil para editarlo
     function buscar_perfil($id_perfil)
     {

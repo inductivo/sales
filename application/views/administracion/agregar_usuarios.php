@@ -1,3 +1,23 @@
+
+<script type="text/javascript">
+  var path = '<?php echo base_url()?>';
+
+  jQuery(document).ready(function() {
+    cargarPerfiles();
+
+    $('#grupos').change(cargarPerfiles);
+  });
+
+  function cargarPerfiles(){
+    var g = $('#grupos').val();
+
+    $.get(path + 'administracion/cargar_perfiles', {'id' : g}, function(resp) {
+      $('#perfiles').empty().html(resp);
+
+    });
+  }
+</script>
+
 <section style="background:#f5f5f5;">
         <div class="container">
             <div class="row">
@@ -7,31 +27,31 @@
                     <ul class="nav nav-tabs" id="myTab">
                     <div class="liner"></div>
                      <li>
-                     <a href="#" data-toggle="tab" title="Agregar empresa">
+                     <a  data-toggle="tab" title="Agregar empresa">
                       <span class="round-tabs one">
                               <i class="fa fa-building-o"></i>
                       </span> 
                   </a></li>
 
-                  <li class="active"><a href="#" data-toggle="tab" title="Agregar grupos">
+                  <li class="active"><a  data-toggle="tab" title="Agregar grupos">
                      <span class="round-tabs two">
                          <i class="fa fa-tags"></i>
                      </span> 
                      </a>
                  </li>
-                 <li class="active"><a href="#" data-toggle="tab" title="Agregar perfiles">
+                 <li class="active"><a  data-toggle="tab" title="Agregar perfiles">
                      <span class="round-tabs three">
                           <i class="fa fa-sitemap"></i>
                      </span> </a>
                      </li>
 
-                     <li class="active"><a href="#" data-toggle="tab" title="Agregar usuarios">
+                     <li class="active"><a  data-toggle="tab" title="Agregar usuarios">
                          <span class="round-tabs four">
                               <i class="fa fa-users"></i>
                          </span> 
                      </a></li>
 
-                     <li><a href="#" data-toggle="tab" title="Fin de la configuración">
+                     <li><a  data-toggle="tab" title="Fin de la configuración">
                          <span class="round-tabs five">
                               <i class="fa fa-check"></i>
                          </span> </a>
@@ -70,7 +90,7 @@
           </div>
 
         <div class="controls controls-row btntxt">
-          <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Email', 'name'=>'email','value' => set_value('email'))); ?>
+          <?= form_input(array('class'=>'span3 input_txt', 'type' => 'email', 'placeholder' => 'Email', 'name'=>'email','value' => set_value('email'))); ?>
 
           <?= form_input(array('class'=>'span2 input_txt', 'type' => 'text', 'placeholder' => 'Teléfono', 'name'=>'telefono','value' => set_value('telefono'))); ?>
 
@@ -84,27 +104,28 @@
 
           <?= form_dropdown('pais',$paises,146,'class="span2"'); ?>
 
-          <?php echo timezone_menu('UM8','class="zonahoraria"');  ?>
+          <?php echo timezone_menu('UM8','zonahoraria');  ?>
 
         </div>
 
          <div class="controls controls-row btntxt">
 
 
-          <?=
-           
-            form_dropdown('id_grupos',$grupos,'class="span4"');
-          ?>
+        
+        <select name="grupos" id="grupos" class="span3">
+          <?php foreach ($grupos as $gpo): ?>
+            <option value="<?php echo $gpo->id_grupos?>"><?php echo $gpo->grupo ?></option>
+          <?php endforeach; ?>
+        </select>
 
-          <?= form_input(array('class'=>'span4 input_txt', 'type' => 'text', 'placeholder' => 'Seleccionar perfil', 'name'=>'perfil','value' => set_value('perfil'))); ?>
+         <select name="perfiles" id="perfiles" class="span4"></select>
+
         </div>
-
-
 
        <?= form_close(); ?>
 
 
-    </div>
+    
     <div class="span2"></div>
   </div>
 
@@ -117,3 +138,5 @@
 </div>
 </div>                        
 </section>
+
+

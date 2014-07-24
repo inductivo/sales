@@ -12,6 +12,8 @@
 		<link href="<?= base_url('css/normalize.css')?>" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
 	</head>
 
 	<body class="cuerpo">
@@ -72,7 +74,7 @@
 			
 			</div>
 
-			<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+			
 			<script src="<?= base_url('js/bootstrap.min.js')?>"></script> 
 			<script type="text/javascript">
 		        $(function(){

@@ -7,7 +7,7 @@
                     <ul class="nav nav-tabs" id="myTab">
                     <div class="liner"></div>
                      <li>
-                     <a href="#" data-toggle="tab" title="Agregar empresa">
+                     <a  data-toggle="tab" title="Agregar empresa">
                       <span class="round-tabs one">
                               <i class="fa fa-building-o"></i>
                       </span> 
@@ -19,19 +19,19 @@
                      </span> 
                      </a>
                  </li>
-                 <li><a href="#" data-toggle="tab" title="Agregar perfiles">
+                 <li><a  data-toggle="tab" title="Agregar perfiles">
                      <span class="round-tabs three">
                           <i class="fa fa-sitemap"></i>
                      </span> </a>
                      </li>
 
-                     <li><a href="#" data-toggle="tab" title="Agregar usuarios">
+                     <li><a data-toggle="tab" title="Agregar usuarios">
                          <span class="round-tabs four">
                               <i class="fa fa-users"></i>
                          </span> 
                      </a></li>
 
-                     <li><a href="#" data-toggle="tab" title="Fin de la configuración">
+                     <li><a  data-toggle="tab" title="Fin de la configuración">
                          <span class="round-tabs five">
                               <i class="fa fa-check"></i>
                          </span> </a>
