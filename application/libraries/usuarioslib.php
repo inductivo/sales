@@ -7,6 +7,7 @@ class Usuarioslib{
     	$this->CI->load->model('Model_Usuarios');
     	$this->CI->load->model('Model_Perfiles');
     	$this->CI->load->model('Model_Empresas');
+    	$this->CI->load->model('Model_Grupos');
 	}
 
 	function login($email,$password)
@@ -17,6 +18,7 @@ class Usuarioslib{
 			$usuario = $query->row();
 			$perfil = $this->CI->Model_Perfiles->find($usuario->id_perfiles);
 			$empresa = $this->CI->Model_Empresas->find($usuario->id_empresas);
+			$grupo = $this->CI->Model_Grupos->find($usuario->id_grupos);
 
 			$datosSession = array('nombre' => $usuario->nombre,
 								  'apellidos' => $usuario->apellidos,
@@ -25,9 +27,12 @@ class Usuarioslib{
 								  'email'=> $usuario->email,
 								  'id_perfiles' => $usuario->id_perfiles,
 								  'perfil' => $perfil->perfil,
-								  'ingresado'	=> 1,
 								  'iniciales'=>$usuario->iniciales,
-								  'empresa' => $empresa->empresa
+								  'id_grupos' => $usuario->id_grupos,
+								  'grupo' => $grupo->grupo,
+								  'zona_horaria' => $usuario->timezones,
+								  'empresa' => $empresa->empresa,
+								  'activo' => $usuario->activo
 								 );
 
 			$this->CI->session->set_userdata($datosSession);

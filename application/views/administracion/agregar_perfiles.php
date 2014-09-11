@@ -61,7 +61,9 @@
                                       <?= form_dropdown('id_grupos',$grupos); ?>
                                     </div>
                                      
-
+                                    <div class="lista">
+                                      <?= form_dropdown('nivel',$niveles) ?>
+                                    </div>
 
 
                                      <div class="input-append">
@@ -73,6 +75,8 @@
                                         </button>
 
                                     </div>
+
+                                    
 
                                 <!-- SPAN 3-->
 
@@ -99,8 +103,8 @@
     <table class= "table table-condensed">
                     <thead class="mithead">
                       <tr>
-                        <th class="th-tabla">Grupo</th>
                         <th class="th-tabla">Perfil</th>
+                        <th class="th-tabla">Grupo</th>
                         <th class="th-tabla">Acciones</th>
                       </tr>
                     </thead>
@@ -116,16 +120,18 @@
                                 $cont = $cont + 1;
                                 if($cont <= 1)
                                 { ?>
-                                  <td class="td-tabla1"> <?= $registro->grupo ?></td>
                                   <td class="td-tabla1"><b><font color="#3498db"> <?= $registro->perfil ?></font></b></td>
+                                  <td class="td-tabla1"><b><font color="#3498db"> <?= $registro->grupo ?></b></font></td>
+                                  
                                   <td class="td-tabla2">
                                   <?= anchor('administracion/editar_perfil/'.$registro->id_perfiles,'Editar', array('class' => 'label label-success','Editar'));?>
                                 </td>
 
                           <?php } else { ?>
                             
-                      <td class="td-tabla1"> <?= $registro->grupo ?></td>
                       <td class="td-tabla1"> <?= $registro->perfil ?></td>
+                      <td class="td-tabla1"> <?= $registro->grupo ?></td>
+                      
                      
 
                       <td class="td-tabla2">

@@ -33,4 +33,20 @@ class Administracionlib{
 	}
 
 
+	function existe_email($registro)
+	{
+		$this->CI->db->where('email', $registro['email']);
+		$query = $this->CI->db->get('usuarios');
+
+		if($query->num_rows > 0 AND (!isset($registro['id_usuarios']) OR ($registro['id_usuarios'] != $query->row('id_usuarios'))))
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+
+	}
+
 }

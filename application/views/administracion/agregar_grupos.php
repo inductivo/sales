@@ -60,6 +60,8 @@
                                      <div class="input-append">
                                       
                                         <?= form_input(array('class'=>'input_txt', 'type' => 'text', 'placeholder' => 'Agregar grupo', 'name'=>'grupo')); ?>
+
+                                    <?=form_hidden ('nivel', 1);?>
                                        
                                         <button type="submit" class="btn btn-success btn-number">
                                           <span><i class="fa fa-plus"></i></span>

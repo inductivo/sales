@@ -59,16 +59,19 @@
 
 
 		<footer>
-			<div class="navbar navbar-default navbar-fixed-bottom">
+			<div class="navbar navbar-default">
 				<div class="container">
-					<p class="navbar-text pull-left">
-						<?= $this->session->userdata('email');?>
-						<?= date('d-m-Y H:i'); ?>
-					</p>
 
-					<p class="navbar-text pull-right">
-						© Copyright 2014 Suma Ventas Consultores, SC. Todos los derechos reservados
-					</p>
+					<ul class="nav pull-left">
+				      		<li class="divider-vertical"></li>
+				      		<li><a class="text-center"><?= $this->session->userdata('email');?></a></li>
+				      		<li><a class="text-center"><?= date('d-m-Y H:i'); ?></a></li>
+				    </ul>
+
+				    <ul class="nav pull-right">
+				      		<li><a class="text-center">© Copyright 2014 Suma Ventas Consultores, SC. Todos los derechos reservados</a></li>
+				      		<li class="divider-vertical"></li>
+				    </ul>
 
 				</div>
 			

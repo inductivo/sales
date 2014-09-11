@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
+.frm-opt {
+	margin:	20px;
+}
+
+
+ .frm-opt .input_txt{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+
+}
+
+.frm-opt .lab{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.frm-opt .control-align
+{
+	text-align: left;
+}
+
+.frm-opt .textarea{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	width: 100%;
+
+}
+
+.frm-opt strong.titulo-prosp
+{
+	font-size: 20px;
+	font-family: 'Helvetica', sans-serif;
+}
+
+thead.thead-opt {
+	background-color: whitesmoke;
+}
+
+th.th-opt{
+	text-align: center;
+	font-family: 'Roboto Condensed', sans-serif;
+	background-color: whitesmoke;
+}
+
+td.td-opt{
+	text-align: center;
+	font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 14px;
+}
+
+td.td-opt2{
+	text-align: center;
+	font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 18px;
+}
+
+td.td-contacto{
+	font-family: "Helvetica 35 Thin","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 14px;
+}
+
+
+td.td-acciones{
+	text-align: center;
+}
+

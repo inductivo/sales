@@ -4,8 +4,10 @@
 
   jQuery(document).ready(function() {
     cargarPerfiles();
+  
 
     $('#grupos').change(cargarPerfiles);
+
   });
 
   function cargarPerfiles(){
@@ -16,6 +18,9 @@
 
     });
   }
+
+ 
+
 </script>
 
 <section style="background:#f5f5f5;">
@@ -33,19 +38,19 @@
                       </span> 
                   </a></li>
 
-                  <li class="active"><a  data-toggle="tab" title="Agregar grupos">
+                  <li class="active"><a data-toggle="tab" title="Agregar grupos">
                      <span class="round-tabs two">
                          <i class="fa fa-tags"></i>
                      </span> 
                      </a>
                  </li>
-                 <li class="active"><a  data-toggle="tab" title="Agregar perfiles">
+                 <li class="active"><a data-toggle="tab" title="Agregar perfiles">
                      <span class="round-tabs three">
                           <i class="fa fa-sitemap"></i>
                      </span> </a>
                      </li>
 
-                     <li class="active"><a  data-toggle="tab" title="Agregar usuarios">
+                     <li class="active"><a data-toggle="tab" title="Agregar usuarios">
                          <span class="round-tabs four">
                               <i class="fa fa-users"></i>
                          </span> 
@@ -60,83 +65,155 @@
                      </ul></div>
 
                      <div class="tab-content">
-                      <div class="tab-pane fade in active" id="home">
+                      <div class="tab-pane fade in active">
 
                           <h3 class="head text-center">AGREGAR USUARIOS</h3>
-                          <p class="narrow text-center">
+                          <p class="narrow text-center"><p>
 
-                      </div>     
+        <div class="margen-form">
+          <?= form_open('administracion/validar_usuario',array('class'=>'myform-grupos')); ?>
+
+            <?= validation_errors('<div class="alert alert-danger caja-error">','</div>'); ?>
+
+              <?=form_hidden ('id_empresas', $empresa->id_empresas);?>
+
+                <div class="controls controls-row btntxt">
+                 <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Nombre', 'name'=>'nombre','value' => set_value('nombre'))); ?>
+
+                  <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Apellidos', 'name'=>'apellidos','value' => set_value('apellidos'))); ?>
+
+                  <?= form_input(array('class'=>'span2 input_txt', 'type' => 'text', 'placeholder' => 'Iniciales', 'name'=>'iniciales','value' => set_value('iniciales'))); ?>
+                </div>
+
+                <div class="controls controls-row btntxt">
+                  <?= form_input(array('class'=>'span3 input_txt', 'type' => 'email', 'placeholder' => 'Email', 'name'=>'email','value' => set_value('email'))); ?>
+
+                  <?= form_input(array('class'=>'span2 input_txt', 'type' => 'text', 'placeholder' => 'Teléfono', 'name'=>'telefono','value' => set_value('telefono'))); ?>
+
+                  <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Ciudad', 'name'=>'ciudad','value' => set_value('ciudad'))); ?>
+                </div>
+
+                <div class="controls controls-row btntxt">
+                  
+
+                  <?= form_dropdown('estado',$estados,24,'class="span2"'); ?>
+
+                  <?= form_dropdown('pais',$paises,146,'class="span2"'); ?>
+
+                  
+
+                  <?php echo timezone_menu('UM7','span3'); ?>
+
+                </div>
+
+                 <div class="controls controls-row btntxt">
+                
+                  <select name="id_grupos" id="grupos" class="span3">
+                    <?php foreach ($grupos as $gpo): ?>
+                      <option value="<?php echo $gpo->id_grupos?>"><?php echo $gpo->grupo ?></option>
+                    <?php endforeach; ?>
+                  </select>
+
+                   <select name="id_perfiles" id="perfiles" class="span4"></select>
+
+                </div>
+
+
+
+         </div>
+
+           
+
+
+
+
+
+
+
+    </div>     
                           
-                      </div>             
-</div>
+  </div>  
 
 </div>
 
+<div class="container-fluid">
+<div class="row-fluid">
+              <div class="span1"></div>
+              <div class="span10 table-responsive text-center">
+                <table class="table table-condensed table-hover table-striped table-bordered">
+                  <thead class="mithead">
+                    <tr>
+                      <th class="th-tabla">Nombre</th>
+                      
+                      <th class="th-tabla">Iniciales</th>
+                      <th class="th-tabla">Email</th>
+                      <th class="th-tabla">Teléfono</th>
+                      <th class="th-tabla">Grupo</th>
+                      <th class="th-tabla">Perfil</th>
+                      <th class="th-tabla">Acciones</th>
 
-  <div class="row">
-    <div class="span2"></div>
-    <div class="span8">
+                    </tr>
+                  </thead>
 
-       <?= form_open('administracion/validar_perfiles',array('class'=>'myform-grupos')); ?>
+                  <tbody>
+                    <?php 
 
-          <?= validation_errors('<div class="alert alert-danger caja-error">','</div>'); ?>
+                      $query= $this->model_administracion->mostrar_usuarios($this->input->post('id_empresas'));
 
-          <div class="controls controls-row btntxt">
-           <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Nombre', 'name'=>'nombre','value' => set_value('nombre'))); ?>
+                        foreach ($query as $registro): ?>
 
-            <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Apellidos', 'name'=>'apellidos','value' => set_value('apellidos'))); ?>
+                        <tr>
+                          <td class="td-tabla1"><?= $registro->nombre ?> <?= $registro->apellidos ?></td>
+                         
+                          <td class="td-tabla1"> <?= $registro->iniciales ?></td>
+                          <td class="td-tabla1"><?= $registro->email ?></td>
+                          <td class="td-tabla1"><?= $registro->telefono ?></td>
+                          <td class="td-tabla1"><?= $this->model_administracion->mostrar_grupo($registro->id_grupos); ?></td>
+                          <td class="td-tabla1"><?= $this->model_administracion->mostrar_perfil($registro->id_perfiles); ?></td>
 
-            <?= form_input(array('class'=>'span2 input_txt', 'type' => 'text', 'placeholder' => 'Iniciales', 'name'=>'iniciales','value' => set_value('iniciales'))); ?>
-          </div>
+                          <td class="td-tabla2">
+                            <?= anchor('administracion/editar_usuario/'.$registro->id_usuarios,'Editar', array('class' => 'label label-success', 'Editar') );?> |
 
-        <div class="controls controls-row btntxt">
-          <?= form_input(array('class'=>'span3 input_txt', 'type' => 'email', 'placeholder' => 'Email', 'name'=>'email','value' => set_value('email'))); ?>
+                            <?= anchor('administracion/eliminar_usuario/'.$registro->id_usuarios,'Eliminar', array('class' => 'label label-important', 'Eliminar','OnClick' => "return confirm('¿Estas seguro de eliminar este usuario?')") );?>
 
-          <?= form_input(array('class'=>'span2 input_txt', 'type' => 'text', 'placeholder' => 'Teléfono', 'name'=>'telefono','value' => set_value('telefono'))); ?>
+                          </td>
 
-          <?= form_input(array('class'=>'span3 input_txt', 'type' => 'text', 'placeholder' => 'Ciudad', 'name'=>'ciudad','value' => set_value('ciudad'))); ?>
+                        </tr>
+
+                      <?php endforeach; ?>
+
+                  </tbody>
+                </table>
+
+                  <div class="text-center p-top">
+
+                      <button type="submit" class="btn btn-primary ">
+                        Agregar usuario                          
+                      </button>
+
+                      <?= anchor('administracion/fin_configuracion', 'Continuar',array('class' => 'btn btn-success', 'type'=>'button')); ?>
+
+                  </div>   
+
+                  <?= form_close(); ?>
+              
+              
+              </div>
+              <div class="span1"></div>
+
         </div>
 
-        <div class="controls controls-row btntxt">
-          
-
-          <?= form_dropdown('estado',$estados,24,'class="span2"'); ?>
-
-          <?= form_dropdown('pais',$paises,146,'class="span2"'); ?>
-
-          <?php echo timezone_menu('UM8','zonahoraria');  ?>
-
         </div>
 
-         <div class="controls controls-row btntxt">
+</div>
+ 
 
 
-        
-        <select name="grupos" id="grupos" class="span3">
-          <?php foreach ($grupos as $gpo): ?>
-            <option value="<?php echo $gpo->id_grupos?>"><?php echo $gpo->grupo ?></option>
-          <?php endforeach; ?>
-        </select>
+</div>                        
+</section>
 
-         <select name="perfiles" id="perfiles" class="span4"></select>
-
-        </div>
-
-       <?= form_close(); ?>
-
-
-    
-    <div class="span2"></div>
-  </div>
 
 
 
 <div class="clearfix"></div>
-
-
-
-</div>
-</div>                        
-</section>
-
 

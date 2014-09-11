@@ -5,6 +5,7 @@ class Home extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->library('usuariosLib');
+		$this->load->model('model_usuarios');
 		
 		/* Mensajes de Validaciòn */
 		$this->form_validation->set_message('validar_credenciales', '<strong>Email</strong> ó <strong>Password</strong> Incorrecto');
@@ -57,9 +58,34 @@ class Home extends CI_Controller {
 			redirect('home/acceso_denegado');
 		}else{
 
-			$data['contenido'] = 'ejecutivo/agenda/dashboard';
-			$data['titulo'] = 'Dashboard';
-			$this->load->view('templates/template_sss',$data);
+			$perfil = $this->model_usuarios->obtener_nivel($this->session->userdata('id_perfiles'));
+
+			if($perfil->nivel == 0)
+			{
+				$data['contenido'] = 'administrador/agenda/dashboard';
+				$data['titulo'] = 'Dashboard ADMIN';
+				$this->load->view('templates/template_admin',$data);
+			}
+			else if ($perfil->nivel == 1)
+			{
+				
+					$data['contenido'] = 'mandosmedios/agenda/dashboard';
+					$data['titulo'] = 'Dashboard MM';
+					$this->load->view('templates/template_mm',$data);
+				
+			} else if ($perfil->nivel == 2)
+			{
+				$data['contenido'] = 'ejecutivo/agenda/dashboard';
+				$data['titulo'] = 'Dashboard EV';
+				$this->load->view('templates/template_ev',$data);
+			}
+			else
+			{
+				echo 'NO entra';
+			}
+
+
+			
 		}
 	}
 

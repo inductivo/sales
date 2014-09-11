@@ -99,6 +99,18 @@ class Model_Administracion extends CI_Model{
         }
     }
 
+    function mostrar_niveles_perfiles()
+    {
+       $query = $this->db->query('SELECT id_nivel_usuario, nivel FROM nivel_usuario');
+       if($query->num_rows > 0)
+       {
+        foreach ($query->result() as $row ) {
+            $registro[$row->id_nivel_usuario] = $row->nivel;
+        }
+        return $registro;
+       }
+    }
+
     function agregar_perfil($registro)
     {
         $this->db->set($registro);
@@ -113,6 +125,7 @@ class Model_Administracion extends CI_Model{
         $this->db->where('perfiles.id_empresas',$id_empresa);
         $this->db->from('perfiles');
         $this->db->join('grupos','perfiles.id_grupos = grupos.id_grupos','left');
+        $this->db->order_by('perfiles.id_grupos','asc');
     
         $query = $this->db->get();
         return $query->result();
@@ -129,6 +142,21 @@ class Model_Administracion extends CI_Model{
         foreach($query->result_array() as $registro)
         {
             $cadena.="<option value = '{$registro['id_perfiles']}'>{$registro['perfil']}</option>";
+        }
+            echo $cadena;
+    }
+
+
+     function devolver_perfiles_check($id_grupo)
+    {
+        $query = $this->db->where('id_grupos',$id_grupo)->get('perfiles');
+        
+        $cadena = "";
+
+        foreach($query->result_array() as $registro)
+        {
+            $cadena.=" <label class='checkbox'>
+            <input type='checkbox' name='perfiles_check[]' value = ' {$registro['id_perfiles']}'> {$registro['perfil']} </label> ";
         }
             echo $cadena;
     }
@@ -153,6 +181,69 @@ class Model_Administracion extends CI_Model{
        
     }
 
+
+    function agregar_usuario($usuario)
+    {
+        $this->db->set($usuario);
+        $this->db->insert('usuarios');
+    }
+
+    function mostrar_usuarios($empresa)
+    {
+        $this->db->where('id_empresas',$empresa);
+        $query = $this->db->get('usuarios');
+        return $query->result();
+    }
+
+    function mostrar_grupo($grupo)
+    {
+        $this->db->where('id_grupos', $grupo);
+        $query= $this->db->get('grupos');
+
+        if($query->num_rows > 0)
+        {
+            foreach ($query->result() as $row) {
+               return $row->id_grupos = $row->grupo;
+            }
+            
+        }
+    }
+
+    function mostrar_perfil($perfil)
+    {
+        $this->db->where('id_perfiles', $perfil);
+        $query= $this->db->get('perfiles');
+
+        if($query->num_rows > 0)
+        {
+            foreach ($query->result() as $row) {
+                return $row->id_perfiles = $row->perfil;
+            }
+           
+        }
+    }
+
+    function buscar_usuario($usuario)
+    {
+        $this->db->where('id_usuarios', $usuario);
+        return $this->db->get('usuarios')->row();        
+    }
+
+    function actualizar_usuario($usuario)
+    {
+        $this->db->set($usuario);
+        $this->db->where('id_usuarios', $usuario['id_usuarios']);
+        $this->db->update('usuarios');
+    }
+
+    function eliminar_usuario($usuario)
+    {
+        $this->db->where('id_usuarios', $usuario);
+        $this->db->delete('usuarios');
+    }
+
+
+
 //OBTENER PAISES Y ESTADOS PARA MOSTRARLOS EN UN DROPDOWN LIST
     function obtener_paises(){  
                 $query = $this->db->query('SELECT id, pais FROM paises');  
@@ -164,6 +255,8 @@ class Model_Administracion extends CI_Model{
                     return $data;
                 } 
     }
+
+
 
     function obtener_estados(){  
                 $query = $this->db->query('SELECT id, estado FROM estados');  

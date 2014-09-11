@@ -24,4 +24,10 @@ class Model_Usuarios extends CI_Model{
 		$this->db->where('id_usuarios', $registro['id_usuarios']);
 		$this->db->update('usuarios');
     }
+
+    function obtener_nivel($id_perfil)
+    {
+        $this->db->where('id_perfiles', $id_perfil);
+        return $this->db->get('perfiles')->row();  
+    }
 }
