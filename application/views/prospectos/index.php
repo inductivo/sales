@@ -2,15 +2,15 @@
 <div class="container">
 	<ul class="nav nav-tabs">
 	  	<li class="active"><?= anchor('prospectos/index','<i class="icon-user"></i>  Prospectos'); ?></li>
-
-	 	 <li><a href="#myModal" data-toggle="modal" class="mymodal"><i class="icon-plus-sign"> </i> Nuevo Prospecto</a></li>
+	  	<li><a data-toggle="modal" href="#" data-target="#myModal" class="mymodal"> Nuevo Prospecto</a></li>
+	  	
 
 	 	 <li><?= anchor('prospectos/ie_prospecto','<i class="icon-download-alt"></i> Importar/Exportar Prospectos'); ?></li>
 	</ul>
 
 	<div class="row-fluid" align="center">
-		<div class="span1"></div>
-		<div class="span10">
+		
+		<div class="span12">
 			<div class="table-responsive">
 				<div class="alert alert-info">
 					<i class="fa fa-user fa-fw fa-lg"></i> Tienes <strong><?= $this->model_prospectos->numprospectos($this->session->userdata('id_usuarios'));?></strong> prospectos
@@ -61,14 +61,15 @@
 				 			<!--Acciones -->
 
 				 			<td class="td-acciones">
-				 				<?= anchor('prospectos/seguimiento/'.$prospecto->id_prospectos,'Seguimiento', array('class' => 'label label-info',
-				 									  'Seguimiento'));?>
+				 				
+				 				<a href="#modalSeguimientoP" data-toggle="modal" class="label label-info modalSeguimientoP"
+					 			 data-id ="<?php echo $prospecto->id_prospectos ?>"  >Seguimiento</a>
 
 					 			 <?= anchor('prospectos/convertir_prospecto/'.$prospecto->id_prospectos,'Convertir', array('class' => 'label label-warning',
 				 									  'Convertir'));?>
 					 			
 					 			<a href="#modalEditar" data-toggle="modal" class="label label-success modalEditar"
-					 			 data-id ="<?php echo $prospecto->id_prospectos ?>" >Editar</a>
+					 			 data-id ="<?php echo $prospecto->id_prospectos ?>">Editar</a>
 
 					 			<?= anchor('prospectos/descartar/'.$prospecto->id_prospectos,
 					 				'Descartar', array('class' => 'label label-important',
@@ -80,24 +81,16 @@
 		
 				 			</td>
 				 		</tr>
-
-				 		<?php endforeach; ?>  
-				 		
+				 		<?php endforeach; ?>   		
 				 	</tbody>
-
 				 </table>
-
-			</div>
-
-		</div>
-		<div class="span1"></div>
-	</div>
-
-</div>
+		</div> <!-- .table-responsive-->		
+	</div> <!--.row-fluid -->
+</div> <!--.container -->
 
 
 <!-- MODAL NUEVO PROSPECTO -->
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -256,9 +249,8 @@
 	<?= form_close(); ?>
 </div>
 
-
 <!-- MODAL NUEVO EDITAR-->
-<div id="modalEditar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modalEditar" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -418,6 +410,61 @@
 		<?= form_close(); ?>
 </div>
 
+<!-- MODAL SEGUIMIENTO-->
+<div id="modalSeguimientoP" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h1><i class=" fa fa-comment fa-lg"></i>  Seguimiento del Prospecto</h1>
+	</div>
+
+	<div class="modal-body">
+		<?= form_open('prospectos/validar_seguimiento',array('class'=>'frmsegp form-horizontal','id' => 'frmsegp'));; ?>
+			
+			<input type="hidden" name="id_prospectos" id="s-id_prospectos">
+
+			<div class="row-fluid fs1" align="center">
+				<div class="span6"><p id="info1"></p></div>
+				<div class="span6"><p id="info2"></p></div>
+				
+			</div><!--.row-fluid -->
+		
+
+			<div class="row-fluid" align="center">
+
+				<div class="span12">
+					<textarea name="seguimiento" id="seguimiento" rows="4" cols="50" placeholder="Escríba aquí lo que hablo con el cliente..." class="seguimiento" required></textarea>
+				</div>
+			
+			</div> <!--.row-fluid -->
+
+			<div class="row-fluid" align="center">
+				<div class="span12">
+					<span class="label label-info subtitulo">AGENDAR ACTIVIDAD</span><br>
+
+					<strong>Fecha:</strong> <input type="text" name="fecha" id="fecha" class="input-medium txt_input datepicker">
+					<strong>Hora:</strong> <input type="text" name="hora" id="hora" class="input-medium txt_input timepicker"><br>
+
+					<div class="input-prepend margin_top">
+			          <span class="add-on"><i class="icon-calendar"></i></span>
+			           <input type="text" class="txt_input_large input-xxlarge" placeholder="Describa aquí la actividad a agendar." name="actividad" id="actividad">
+			        </div>
+
+				</div>
+			</div><!--.row-fluid -->
+
+	</div><!--.modal-body -->
+
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		<button type="submit" class="btn btn-success">Aceptar</button>
+	</div>
+		<?= form_close();?>
+</div> <!--FIN MODAL SEGUIMIENTO -->
+
+
+
+
 
 			<!-- Jquery Validation-->
 			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>	
@@ -425,6 +472,11 @@
 
 			<script src="<?= base_url('js/validaciones.js')?>"></script>
 			<script src="<?= base_url('js/editar_prospecto.js')?>"></script>
+			<script src="<?= base_url('js/seguimiento.js')?>"></script>
+			
+
+			<link href="<?= base_url('css/seguimientop.css')?>" rel="stylesheet"  type= "text/css" media="screen">
+			<link href="<?= base_url('css/timepicker.css')?>" rel="stylesheet"  type= "text/css" media="screen">
 
 
 

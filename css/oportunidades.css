@@ -1,5 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
 
+
+div.titulos
+{
+	color: #e74c3c;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 20px;
+	text-align: left;
+}
+
 .frm-opt {
 	margin:	20px;
 }
@@ -71,4 +80,119 @@ td.td-contacto{
 td.td-acciones{
 	text-align: center;
 }
+
+.frm-rv {
+	margin:	20px;
+}
+
+
+ .frm-rv .input_txt{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+
+}
+
+.frm-rv .lab{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: left;
+	
+	
+}
+
+.frm-rv .control-align
+{
+	text-align: left;
+}
+
+.frm-rv .textarea{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	width: 100%;
+
+}
+
+strong.titulo-prosp
+{
+	font-size: 20px;
+	font-family: 'Helvetica', sans-serif;
+}
+
+/* CSS FRM Venta */
+
+.frm-venta {
+	margin:	20px;
+}
+
+
+ .frm-venta .input_txt{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+
+}
+
+.frm-venta .lab{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	
+	
+}
+
+.frm-venta .control-align
+{
+	text-align: left;
+}
+
+.frm-venta .textarea{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	width: 100%;
+
+}
+
+.frm-venta strong.titulo-prosp
+{
+	font-size: 20px;
+	font-family: 'Helvetica', sans-serif;
+}
+
+.frm-venta .form-horizontal .controls 
+{
+	margin-left: 80px;
+}
+
+.frm-venta strong.calendario-pagos
+{
+	font-size: 20px;
+	font-family: 'Helvetica', sans-serif;
+}
+
+.frm-venta .margen-pagos
+{
+	margin-bottom: 20px;
+}
+
+.frm-venta .lab2{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.frm-venta .margin-input
+{
+	margin-bottom: 20px;
+}
+ 
 

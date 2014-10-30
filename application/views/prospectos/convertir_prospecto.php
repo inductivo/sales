@@ -34,23 +34,23 @@
 				<div class="control-group">
 					<label class="control-label lab" for="concepto"><font color="red"><strong>*</strong></font>Concepto: </label>
 					<div class="controls control-align">
-						<?= form_input(array('class'=>'input_txt required','type'=>'text','name'=>'concepto','id'=>'concepto','value'=>'','autofocus'=>'autofocus'));?>
+						<?= form_input(array('class'=>'input_txt required','type'=>'text','name'=>'concepto','id'=>'concepto','value'=>$oportunidad->concepto,'autofocus'=>'autofocus'));?>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label lab" for="monto"><font color="red"><strong>*</strong></font>Monto: </label>
 					<div class="controls control-align">
-						<?= form_input(array('class'=>'input_txt required','type'=>'text','name'=>'monto','id'=>'monto'));?>
+						<?= form_input(array('class'=>'input_txt required','type'=>'text','name'=>'monto','id'=>'monto','value'=>$oportunidad->monto));?>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label lab" for="comision"><font color="red"><strong>*</strong></font>Comision: </label>
 					<div class="controls control-align">
-						<?= form_input(array('class'=>'input_txt span4','type'=>'text','name'=>'comision','id'=>'comision','readonly'=>'readonly'));?>
+						<?= form_input(array('class'=>'input_txt span4','type'=>'text','name'=>'comision','id'=>'comision','readonly'=>'readonly','value'=>$oportunidad->comision));?>
 						<div class="input-append">
-	                  		<input class="span3" id="porcentaje" name="porcentaje" type="text" value="10" required>
+	                  		<input class="span3" id="porcentaje" name="porcentaje" type="text" value=<?= $oportunidad->porcentaje ?> required>
 	                  		<span class="add-on">%</span>
                 		</div>
 					</div>
@@ -60,7 +60,7 @@
 				<div class="control-group">
 					<label class="control-label lab " for="cierre"><font color="red"><strong>*</strong></font>Cierre estimado: </label>
 					<div class="controls control-align">
-						<?= form_input(array('class'=>'input_txt required','type'=>'text','name'=>'cierre','id'=>'datepicker','readonly'=>'readonly'));?>
+						<?= form_input(array('class'=>'input_txt datepicker required','type'=>'text','name'=>'cierre','id'=>'cierre','readonly'=>'readonly','value'=>$oportunidad->cierre));?>
 						    
 					</div>
 				</div>

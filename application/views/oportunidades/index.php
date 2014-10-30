@@ -78,20 +78,21 @@
 				 			<!--Acciones -->
 
 				 			<td class="td-acciones">
-				 				<?= anchor('oportunidades/seguimiento/'.$oportunidad->id_prospectos,'Seguimiento', array('class' => 'label label-info',
+				 				<?= anchor('oportunidades/seguimiento/'.$oportunidad->id_oportunidades,'Seguimiento', array('class' => 'label label-info',
 				 									  'Seguimiento'));?>
 
-					 			 <?= anchor('oportunidades/venta/'.$oportunidad->id_prospectos,'Realizar Venta', array('class' => 'label label-warning',
+
+					 			 <?= anchor('oportunidades/venta/'.$oportunidad->id_oportunidades.'/'.$oportunidad->id_prospectos,'Realizar Venta', array('class' => 'label label-warning',
 				 									  'Realizar Venta'));?>
 					 			
 
-					 			<?= anchor('oportunidades/descartar/'.$oportunidad->id_prospectos,
+					 			<?= anchor('oportunidades/descartar/'.$oportunidad->id_oportunidades,
 					 				'Descartar', array('class' => 'label label-important',
 					 							'Descartar',
 					 				 			'OnClick' => "return confirm
 					 				 	('¿Estas seguro de descartar esta oportunidad?')"));?>
 					 			
-					 			<?= anchor('oportunidades/ver/'.$oportunidad->id_prospectos,'Ver', array('class' => 'label label-inverse','Ver'))?>
+					 			<?= anchor('oportunidades/ver/'.$oportunidad->id_oportunidades,'Ver', array('class' => 'label label-inverse','Ver'))?>
 		
 				 			</td>
 				 		</tr>
@@ -183,7 +184,10 @@
 		
 	</div>
 
-</div>
+</div> <!--.container -->
+
+
+
 
 			<!-- Jquery Validation-->
 			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>	

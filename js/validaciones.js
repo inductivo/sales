@@ -59,5 +59,17 @@
 		});
 
 		
+		$('#frmsegp').validate({
+
+			rules: {
+					seguimiento: {required : true}
+			},
+
+			messages : {
+				seguimiento : {required : "<span class='label label-important'>Campo obligatorio</span>"}
+			}
+		});
+
+		
 
 	})

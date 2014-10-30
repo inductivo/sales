@@ -3,7 +3,7 @@
 $(document).ready(function(){
 
 	//Datapicker
-	$( "#datepicker" ).datepicker({ 
+	$( ".datepicker" ).datepicker({ 
         minDate: 0,
         dateFormat: " yy-mm-dd",
         dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
@@ -13,6 +13,12 @@ $(document).ready(function(){
         autoSize: true
 
       });
+
+    $(".timepicker").timepicker({ 
+        'step': 15,
+        'timeFormat': 'H:i A',
+        'minTime': '07:00am'
+       });
 
 
 	//Desvanece las alertas

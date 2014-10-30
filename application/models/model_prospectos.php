@@ -163,7 +163,7 @@ class Model_Prospectos extends CI_Model{
       $opt_usu = array(
                           'id_oportunidades' => $query->id_oportunidades,
                           'id_usuarios' => $id_usuario,
-                          'status'  => 1 // 1 = Activo, 0 = Descartado
+                          'status'  => 1 // 1 = Activo, 0 = Descartado 2 = Venta realizada
         );
 
       //SE INSERTA EN LA TABLA oportunidades_usuarios
@@ -208,6 +208,70 @@ class Model_Prospectos extends CI_Model{
       $this->db->set($arc_opt);
       $this->db->insert('archivos_oportunidades');
     }
+
+    public function agregar_seguimiento($seguimiento,$prospecto)
+    {
+      $this->db->set($seguimiento);
+      $this->db->insert('seguimiento');
+
+      $this->db->select_max('id_seguimiento');
+      $this->db->from('seguimiento');
+      $query = $this->db->get()->row();
+
+      $prosp_seg = array(
+        'id_prospectos' => $prospecto,
+        'id_seguimiento' => $query->id_seguimiento
+        );
+
+      $this->db->set($prosp_seg);
+      $this->db->insert('prospectos_seguimiento');
+
+    }
+
+    public function agregar_actividad($actividad,$prospecto)
+    {
+      $this->db->set($actividad);
+      $this->db->insert('actividad');
+
+      $this->db->select_max('id_actividad');
+      $this->db->from('actividad');
+      $query = $this->db->get()->row();
+
+      $act_prosp = array(
+        'id_actividad' => $query->id_actividad,
+        'id_prospectos' => $prospecto
+        );
+
+      $this->db->set($act_prosp);
+      $this->db->insert('actividad_prospectos');
+    }
+
+public function mostrar_seguimiento($prospecto)
+{
+  $this->db->select('seguimiento.*,prospectos_seguimiento.*');
+  $this->db->from('seguimiento');
+  $this->db->join('prospectos_seguimiento','seguimiento.id_seguimiento = prospectos_seguimiento.id_seguimiento','inner');
+  $this->db->where('id_prospectos', $prospecto);
+  $this->db->order_by('seguimiento.fecha','desc');
+  $this->db->order_by('seguimiento.hora','desc');
+
+  $query = $this->db->get();
+  return $query->result();
+}
+
+public function mostrar_actividad($prospecto)
+{
+  $this->db->select('actividad.*,actividad_prospectos.*,estatus.*');
+  $this->db->from('actividad');
+  $this->db->join('actividad_prospectos','actividad.id_actividad = actividad_prospectos.id_actividad','inner');
+  $this->db->join('estatus','estatus.id_estatus = actividad.estatus');
+  $this->db->where('id_prospectos',$prospecto);
+  $this->db->order_by('actividad.fecha','desc');
+  $this->db->order_by('actividad.hora','desc');
+
+  $query = $this->db->get();
+  return $query->result();
+}
 
 
 }

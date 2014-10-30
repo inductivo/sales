@@ -61,6 +61,65 @@ class Model_Oportunidades extends CI_Model{
              echo '<span class="badge badge-success">'.$certeza.'% </span>';
         }
     }
+
+    //Buscar OPORTUNIDAD para REALIZAR VENTA
+    public function info_oportunidad($id_oportunidad)
+    {
+       $this->db->where('id_oportunidades', $id_oportunidad);
+        return $this->db->get('oportunidades')->row();
+    }
+
+    //Insertar los datos de la Venta realizada
+    public function insertar_venta($venta)
+    {
+      $this->db->set($venta);
+      $this->db->insert('ventas');
+    }
+
+    public function insertar_pago($pagos)
+    {
+      $this->db->set($pagos);
+      $this->db->insert('pagos');
+
+      //Buscar el id_pagos que se acaba de ingresar
+      $this->db->select_max('id_pagos');
+      $this->db->from('pagos');
+      $query_pagos = $this->db->get()->row();
+
+      //Buscar el ultimo id_ventas que se agrego
+      $this->db->select_max('id_ventas');
+      $this->db->from('ventas');
+      $query_ventas = $this->db->get()->row();
+
+      //Se crea el arreglo con los valores de los id
+      $registro = array(
+        'id_pagos' => $query_pagos->id_pagos,
+        'id_ventas' => $query_ventas->id_ventas
+        );
+
+      //Se agrega el pago a la bd
+      $this->db->set($registro);
+      $this->db->insert('pagos_ventas');
+
+      $this->db->select('id_oportunidades');
+      $this->db->where('id_ventas', $query_ventas->id_ventas);
+      $this->db->from('ventas');
+      $consulta = $this->db->get()->row();
+
+      $stat = array('status' => 2);
+      $this->db->set($stat);
+      $this->db->where('id_oportunidades', $consulta->id_oportunidades);
+      $this->db->update('oportunidades_usuarios');
+
+    }
+
+     public function descartar($registro)
+    {
+      $this->db->set($registro);
+      $this->db->where('id_oportunidades', $registro['id_oportunidades']);
+      $this->db->update('oportunidades_usuarios', $registro);
+    }
 	 
+
 
 }

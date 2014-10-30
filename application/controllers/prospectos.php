@@ -306,4 +306,48 @@ class Prospectos extends CI_Controller {
 
 	}
 
+	public function validar_seguimiento()
+	{
+
+		$this->form_validation->set_rules('seguimiento', 'Seguimiento', 'trim|xss_clean');
+		$this->form_validation->set_rules('fecha', 'Fecha', 'trim|xss_clean');
+		$this->form_validation->set_rules('hora', 'Hora', 'trim|xss_clean');
+		$this->form_validation->set_rules('actividad', 'Actividad', 'trim|xss_clean'); 
+
+		if($this->form_validation->run())
+		{
+			$prospecto = $this->input->post('id_prospectos');
+
+			$seguimiento = array(
+				'seguimiento' => $this->input->post('seguimiento'),
+				'hora'	=> date('H:i'),
+				'fecha'	=>	date('Y/m/d')
+				);
+
+			$actividad = array(
+				'hora' => $this->input->post('hora'),
+				'fecha' => $this->input->post('fecha'),
+				'actividad' => $this->input->post('actividad'),
+				'estatus' => 1
+				);
+
+			/* Actividad
+			 1 -> No realizada
+			 2 -> Realizada
+			 3-> Reagendada */
+
+			$this->model_prospectos->agregar_seguimiento($seguimiento,$prospecto);
+			$this->model_prospectos->agregar_actividad($actividad, $prospecto);
+
+			$this->index();
+			echo '<div class="alert alert-warning caja-error alerta" align="center">Agendado!<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
+
+		} else 
+		{
+			$this->index();
+		}
+
+	}
+
+
 }
