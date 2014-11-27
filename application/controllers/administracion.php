@@ -413,18 +413,18 @@ class Administracion extends CI_Controller {
 
 			$this->load->library('email', array('mailtype' =>'html'));
 			
+			$data['email'] = $usuario['email'];
 
 			$this->email->from('soporte@sumaventas.com.mx', "Soporte SSS");
 			$this->email->to($usuario['email']);
-			$this->email->subject("Usuario Agregado Sales System Suma");
+			$this->email->subject("Plataforma de Prospección");
 
-			$message= "<p>Ya puedes empezar a utilizar la plataforma de ventas<p> <br>";
+			$message = $this->load->view('administracion/email',$data,TRUE);
 			
-			$message.= "<b>Usuario:</b> ".$usuario['email']."<br>";
-			$message.= "<b>Contraseña</b>: ".$usuario['email'];
+		
+			//$message.= "<b>Usuario:</b> ".$usuario['email']."<br>";
+			//$message.= "<a class='btn' href=".base_url()."home'>Iniciar Sesión</a>";
 
-			$message.= "<p> <a href='".base_url()."home' >Click aquí </a>
-			para iniciar sesión con tu nueva cuenta </p>";
 
 
 			$this->email->message($message);

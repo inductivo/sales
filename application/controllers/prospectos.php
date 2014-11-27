@@ -89,6 +89,7 @@ class Prospectos extends CI_Controller {
 			$id_usuario = $this->session->userdata('id_usuarios');
 
 			$this->model_prospectos->insertar_prospecto($registro,$id_empresa,$id_usuario);
+			
 			$this->index();
 			echo '<div class="alert alert-success caja-error alerta" align="center">Prospecto agregado correctamente <i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
 
@@ -251,6 +252,12 @@ class Prospectos extends CI_Controller {
 				'creacion'	=>	date('Y/m/d H:i')
 				);
 
+			$comentarios = array(
+				'seguimiento' => $this->input->post('comentarios'),
+				'fecha' => date('Y/m/d'),
+				'hora' => date('H:i')
+				);
+
 			$id_empresa = $this->session->userdata('id_empresas');
 			$id_usuario = $this->session->userdata('id_usuarios');
 			$id_prospecto = $this->input->post('id_prospectos');
@@ -269,11 +276,12 @@ class Prospectos extends CI_Controller {
 					if($data['file_size'] > 0)
 					{
 					echo $this->upload->display_errors('<div class="alert alert-warning caja-error">','</div>');
-					$this->convertir_prospecto($id_prospecto);
+					$this->index();
 					}
 					else
 					{
 						$this->model_prospectos->crear_oportunidad($oportunidad,$id_empresa,$id_usuario);
+						$this->model_prospectos->agregar_seguimiento($comentarios,$id_prospecto);
 
 						$this->index();
 						echo '<div class="alert alert-warning caja-error alerta" align="center">Oportunidad de Negocio Generada!<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
@@ -293,6 +301,7 @@ class Prospectos extends CI_Controller {
 
 					$this->model_prospectos->crear_oportunidad($oportunidad,$id_empresa,$id_usuario);
 					$this->model_prospectos->agregar_archivo($datos_archivo);
+					$this->model_prospectos->agregar_seguimiento($comentarios,$id_prospecto);
 					$this->index();
 					echo '<div class="alert alert-warning caja-error alerta" align="center">Oportunidad de Negocio Generada!<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
 
@@ -328,13 +337,20 @@ class Prospectos extends CI_Controller {
 				'hora' => $this->input->post('hora'),
 				'fecha' => $this->input->post('fecha'),
 				'actividad' => $this->input->post('actividad'),
-				'estatus' => 1
+				'estatus' => 1,
+				'id_tipo' => 1
 				);
 
-			/* Actividad
+			/* Estatus
 			 1 -> No realizada
 			 2 -> Realizada
 			 3-> Reagendada */
+
+			 /*TIPO
+			 1 -> Prospecto
+			 2->Opt
+			 3->Cliente
+			 */
 
 			$this->model_prospectos->agregar_seguimiento($seguimiento,$prospecto);
 			$this->model_prospectos->agregar_actividad($actividad, $prospecto);
@@ -347,6 +363,12 @@ class Prospectos extends CI_Controller {
 			$this->index();
 		}
 
+	}
+
+
+	public function cargarFases()
+	{
+		$this->model_prospectos->cargarFases();
 	}
 
 

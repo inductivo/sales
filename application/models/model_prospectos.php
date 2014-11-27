@@ -51,6 +51,14 @@ class Model_Prospectos extends CI_Model{
       $this->db->set($prosp_usu);
       $this->db->insert('prospectos_usuarios');
 
+      $comentario = array(
+        'seguimiento' => $this->input->post('comentarios'),
+        'fecha' => date('Y/m/d'),
+        'hora' => date('H:i')
+        );
+      
+     $this->model_prospectos->agregar_seguimiento($comentario, $query->id_prospectos);
+
     }
 
     public function actualizar_prospecto($registro)
@@ -97,6 +105,42 @@ class Model_Prospectos extends CI_Model{
         echo $json;   
       }
 
+      //Obtiene las fases de la oportunidad para desplegarlas en el dropdown
+      public function cargarFases()
+      {
+        $query = $this->db->query('SELECT * FROM fases_opt'); 
+        $arreglo = array();
+
+        if($query->num_rows() > 0)
+        {
+           foreach($query->result() as $registro)
+           {
+
+            $arreglo[] = array(
+                'id_fases_opt'=> $registro->id_fases_opt,
+                'fase' => $registro->fase
+              );    
+           }
+        }
+            $json = json_encode($arreglo);
+            echo $json;              
+      }
+
+     /*public function cargarFases()
+      {
+
+        $resulset = mysql_query("SELECT * FROM fases_opt");
+        $arr = array();
+        while ($obj = mysql_fetch_object($resulset)) {
+            $arr[] = array('id_fases_opt' => $obj->id_fases_opt,
+                     'fase' => $obj->fase
+                );
+        }
+        $jsonData = json_encode($arr);
+        echo ''. $jsonData.'';
+      }*/
+
+
       public function numprospectos($id_usuario){
 
         $this->db->where('id_usuarios', $id_usuario);
@@ -122,19 +166,6 @@ class Model_Prospectos extends CI_Model{
     {
        $this->db->where('id_prospectos', $id_prospecto);
         return $this->db->get('prospectos')->row();
-    }
-
-    //Obtiene las fases de la oportunidad para desplegarlas en el dropdown
-    public function obtener_fases()
-    {
-      $query = $this->db->query('SELECT * FROM fases_opt');  
-                if($query->num_rows > 0){
-
-                    foreach($query->result() as $row){
-                            $data[$row->id_fases_opt] = $row->fase;
-                    }
-                    return $data;
-                } 
     }
 
     public function crear_oportunidad($oportunidad, $id_empresa,$id_usuario)

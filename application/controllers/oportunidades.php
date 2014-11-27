@@ -29,6 +29,9 @@ class Oportunidades extends CI_Controller {
 			{
 				$data['contenido'] = 'oportunidades/index';
 				$data['titulo'] = 'Oportunidades Admin';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
 				$this->load->view('templates/template_admin',$data);
 			}
 
@@ -36,6 +39,9 @@ class Oportunidades extends CI_Controller {
 			{
 				$data['contenido'] = 'oportunidades/index';
 				$data['titulo'] = 'Oportunidades MM';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
 				$this->load->view('templates/template_mm',$data);
 			}
 
@@ -43,6 +49,9 @@ class Oportunidades extends CI_Controller {
 			{	
 				$data['contenido'] = 'oportunidades/index';
 				$data['titulo'] = 'Oportunidades EV';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
 				$this->load->view('templates/template_ev',$data);	
 			}
 		}	
@@ -112,29 +121,37 @@ class Oportunidades extends CI_Controller {
 				'observaciones' => $this->input->post('observaciones'),
 				'pagos' => $this->input->post('pagos'),
 				'periodicidad' => $this->input->post('periodicidad'),
-				'tipocomision' => $this->input->post('tipocomision')
+				'tipocomision' => $this->input->post('tipocomision'),
+				'saldo' => 0
 			);
 
 			$this->model_oportunidades->insertar_venta($venta);
 
 			//Insertar el anticipo
-			$num_pagos = array(
-				'pago' => $this->input->post('anticipo'),
+			$datos_anticipo = array(
+				'anticipo' => $this->input->post('anticipo'),
 				'comision' => $this->input->post('comisionanticipo'),
 				'fecha' => $this->input->post('fechaanticipo'),
 				'referencia' => $this->input->post('referencia')
 				);
+			
+
 			$p = $this->input->post('pagorealizado');
 			
 			//0 = No pagado 1 = Pagado
 			if(isset($p) && $p == "pagado")
 			{	
-				$num_pagos['pagorealizado'] = 1;
+				$datos_anticipo['pagorealizado'] = 1;
+
+				$saldo = $this->input->post('monto') - $this->input->post('anticipo');
+
 			} else {
-				$num_pagos['pagorealizado'] = 0;
+				$datos_anticipo['pagorealizado'] = 0;
+				$saldo = $this->input->post('monto');
 			}
 
-			$this->model_oportunidades->insertar_pago($num_pagos);
+			$this->model_oportunidades->insertar_anticipo($datos_anticipo);
+			$this->model_oportunidades->insertar_saldo($saldo);
 
 
 			for($i=0; $i<=$pagos-2; $i++)
@@ -160,6 +177,12 @@ class Oportunidades extends CI_Controller {
 
 				$this->model_oportunidades->insertar_pago($registro);
 			}
+
+			$fase = array(
+				'fase' => 4
+				);
+
+			$this->model_oportunidades->cambiar_fase($this->input->post('oportunidad'),$fase);
 
 			$this->index();
 			echo '<div class="alert alert-success caja-error alerta" align="center"><strong>FELICIDADES</strong>, ha cerrado una VENTA <i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
@@ -235,6 +258,158 @@ class Oportunidades extends CI_Controller {
 		$this->model_oportunidades->descartar($registro);
 		$this->index();
 		echo '<div class="alert alert-error caja-error alerta" align="center"><strong>Oportunidad Descartada</strong><i class="fa fa-ban fa-fw fa-lg"></i></div>';
+
+	}
+
+	public function buscar_prospecto()
+	{
+		$id=$_GET['id_prospectos'];
+		$this->model_prospectos->buscar_prospecto($id);
+	}
+
+
+	public function buscar_oportunidad()
+	{
+		$id=$_GET['id_oportunidades'];
+		$this->model_oportunidades->buscar_oportunidad($id);
+	}
+
+	public function cargarFases()
+	{
+		$this->model_prospectos->cargarFases();
+	}
+
+	public function ver_opt($id_prospecto,$id_opt)
+	{
+		if($this->session->userdata('id_usuarios') == null)
+		{
+			redirect('home/acceso_denegado');
+		} else{
+
+			$perfil = $this->model_usuarios->obtener_nivel($this->session->userdata('id_perfiles'));
+
+			if($perfil->nivel == 0)
+			{
+				$data['contenido'] = 'oportunidades/ver_opt';
+				$data['titulo'] = 'Oportunidad ADMIN';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
+				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
+				$data['opt'] = $this->model_oportunidades->ver_opt($id_opt);
+				$this->load->view('templates/template_admin',$data);
+			}
+
+			else if($perfil->nivel == 1)
+			{
+				$data['contenido'] = 'oportunidades/ver_opt';
+				$data['titulo'] = 'Oportunidad MM';
+				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
+				$this->load->view('templates/template_mm',$data);
+			}
+
+			else if($perfil->nivel == 2)
+			{
+				$data['contenido'] = 'oportunidades/ver_opt';
+				$data['titulo'] = 'Oportunidad EV';
+				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
+				$this->load->view('templates/template_ev',$data);	
+			}
+		}	
+	}
+
+
+
+	public function seguimiento_opt()
+	{
+
+		$this->form_validation->set_rules('concepto', 'Concepto', 'trim|xss_clean');
+		$this->form_validation->set_rules('monto', 'Monto', 'trim|xss_clean');
+		$this->form_validation->set_rules('porcentaje', 'Porcentaje', 'trim|xss_clean');
+		$this->form_validation->set_rules('comentarios', 'Comentarios', 'trim|xss_clean');
+
+		if($this->form_validation->run())
+		{
+			$oportunidad = array(
+				'concepto'	=> $this->input->post('concepto'),
+				'monto'	=> $this->input->post('monto'),
+				'comision'	=> $this->input->post('comision'),
+				'porcentaje'	=> $this->input->post('porcentaje'),
+				'cierre'	=> $this->input->post('cierre'),
+				'certeza'	=> $this->input->post('certeza'),
+				'fase'	=>	$this->input->post('fase')
+				);
+
+			$idp= $this->input->post('id_prospectos');
+			$ido= $this->input->post('id_oportunidades');
+
+			//FALTA AGREGAR LOS COMENTARIOS AL SEGUIMIENTO
+			$comentarios = array(
+				'seguimiento' => $this->input->post('comentarios'),
+				'fecha' => date('Y/m/d'),
+				'hora' => date ('H:i')
+				);
+
+			$actividad = array(
+				'hora' => $this->input->post('hora'),
+				'fecha' => $this->input->post('fecha'),
+				'actividad' => $this->input->post('actividad'),
+				'estatus' => 1,
+				'id_tipo' => 2
+				);
+		
+
+			$this->model_oportunidades->agregar_seguimiento($this->input->post('id_oportunidades'),$comentarios);
+			$this->model_oportunidades->agregar_actividad($actividad,$ido);
+
+			$config['upload_path'] = 'uploads';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ppt|pptx';
+			$config['max_size']	= '2048';
+
+			$this->load->library('upload', $config);
+			$archivo_cargado = $this->upload->do_upload();
+
+			$data = $this->upload->data();
+
+				if ( ! $this->upload->do_upload())
+				{
+					if($data['file_size'] > 0)
+					{
+					echo $this->upload->display_errors('<div class="alert alert-warning caja-error">','</div>');
+					$this->index();
+					}
+					else
+					{
+						$this->model_oportunidades->actualizar_opt($oportunidad,$ido);
+
+						$this->index();
+						echo '<div class="alert alert-warning caja-error alerta" align="center">Se actualizo la Oportunidad<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
+					}
+				}	
+				else
+				{
+
+					$datos_archivo = array(
+						'nombre' => $data['file_name'],
+						'ruta'	=> $data['full_path'],
+						'peso'	=>	$data['file_size'],
+						'extension'	=> $data['file_ext'],
+						'fecha'	=>	date('Y/m/d'),
+						'hora'	=> date('H:i')
+					);
+
+					$this->model_oportunidades->actualizar_opt($oportunidad,$ido);
+					$this->model_oportunidades->agregar_archivo_seg($datos_archivo,$ido);
+					$this->index();
+					echo '<div class="alert alert-warning caja-error alerta" align="center">Se actualizo la Oportunidad<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
+
+				}
+			
+		}else
+		 {
+		 	$this->index();
+		 }
+
 
 	}
 	

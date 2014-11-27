@@ -1,5 +1,4 @@
 
-<div class="container">
 	<ul class="nav nav-tabs">
 	  	<li class="active"><?= anchor('prospectos/index','<i class="icon-user"></i>  Prospectos'); ?></li>
 	</ul>
@@ -139,7 +138,7 @@
 		<div class="span1"></div>
 	
 	</div>
-</div>
+
 
 			
 			<script src="<?= base_url('js/valid_opt.js')?>"></script>

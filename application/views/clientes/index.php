@@ -1,23 +1,28 @@
 
-	<div class="row-fluid">
+<!--CLIENTES -->
+	<div class="row-fluid" align="center">
 		
 		<div class="span12">
 			<div class="table-responsive">
-				<div class="alert alert-info" align="center">
-					<i class="fa fa-user fa-fw fa-lg"></i> Tienes <strong><?= $this->model_prospectos->numprospectos($this->session->userdata('id_usuarios'));?></strong> prospectos
+				<div class="alert alert-info">
+					<i class="fa fa-check-square fa-fw fa-lg"></i> Tienes <strong><?= $this->model_clientes->numclientes($this->session->userdata('id_usuarios'));?></strong> Clientes
 				</div>
 				 
 				 <p align="right"><input type="text" id="search_string" class="input_txt" placeholder="Buscar"></p>
 
 				 <table class="table table-condensed table-hover table-bordered" id="myTable">
-				 	<thead class="thead-prosp">
+				 	<thead class="thead-opt">
 				 		<tr>
-			                <th class="th-prosp"></th>
-			                <th class="th-prosp"><i class="fa fa-caret-down fa-fw"></i> Nombre y Empresa</th>
-			                <th class="th-prosp">Puesto</th>
-			                <th class="th-prosp">Datos de Contacto</th>                          
-			                <th class="th-prosp"><i class="fa fa-caret-down fa-fw"></i> Creación</th>
-			                <th class="th-prosp">Acciones</th> 
+			                <th class="th-opt"></th>
+			                <th class="th-opt"><i class="fa fa-caret-down fa-fw"></i> Nombre y Empresa</th>
+			                <th class="th-opt">Datos de Contacto</th>                          
+			                <th class="th-opt">Concepto/Fase</th>
+			                <th class="th-opt">Monto</th>
+			                <th class="th-opt">Anticipos</th>
+			                <th class="th-opt">Saldo</th>
+			                <th class="th-opt">Comision</th>
+			                <th class="th-opt">Eje</th>
+			                <th class="th-opt">Acciones</th> 
                       	</tr> 
 				 	</thead>
 
@@ -25,58 +30,72 @@
 
 				 		<?php
 				 			$var = 0;
-				 			$query = $this->model_prospectos->mostrar_prospectos($this->session->userdata('id_usuarios'));
+				 			$query = $this->model_clientes->mostrar_clientes($this->session->userdata('id_usuarios'));
 
-				 			foreach ($query as $prospecto):
+				 			foreach ($query as $clientes):
 				 		?>
 
 				 		<tr>
-				 			<td class="td-prosp"> <?php echo  $var = $var+1; ?></td>
-				 			<td class="td-prosp nombre"><?= $prospecto->titulo ?>
-				 				<?= $prospecto->nombre ?> <?= $prospecto->apellidos ?>
-				 				<h5><?= $prospecto->empresa ?></h5>
+				 			<td class="td-opt"> <?php echo  $var = $var+1; ?></td>
+				 			<td class="td-opt nombre"><?= $clientes->titulo ?>
+				 				<?= $clientes->nombre ?> <?= $clientes->apellidos ?><br>
+				 				<strong><?= $clientes->empresa ?></strong><br>
+				 				<small><?= $clientes->puesto ?></small>
 				 			</td>
-				 			<td class="td-prosp"><?= $prospecto->puesto ?></td>
+				
 				 			<td class="td-contacto"><i class="fa fa-phone fa-fw"></i>
-				 				<?= $prospecto->telefono ?><br>
+				 				<?= $clientes->telefono ?><br>
 				 			
 				 			<i class="fa fa-mobile fa-fw"></i>
-				 				<?= $prospecto->movil ?><br>
+				 				<?= $clientes->movil ?><br>
 				 			
 				 			<i class="fa fa-envelope-o fa-fw"></i>
-				 				<?= $prospecto->email ?><br>
+				 				<?= $clientes->email ?><br>
 				 				
 				 			</td>
-				 			<td class="td-prosp"><?= $prospecto->creacion ?>
+
+				 			<td class="td-opt">
+				 				<?= $clientes->concepto?><br> 
+				 				<?= $clientes->fase?>
+
+				 			</td>
+
+				 			<td class="td-opt"><span class="label label-info">$ <?= $clientes->monto?></span></td>
+				 			<td class="td-opt"><span class="label label-success">$ <?=$clientes->anticipo ?> </span></td>
+				 			<td class="td-opt"><span class="label label-important">$<?=$clientes->saldo ?></span></td>
+				 			<td class="td-opt"><span class="label label-warning">$<?=$clientes->comision ?></span></td>
+				 			<td class="td-opt"><?= $this->session->userdata('iniciales');?></td>
 
 				 			<!--Acciones -->
 
 				 			<td class="td-acciones">
-				 				
+
+				 				<a href="#modalConvertir" data-toggle="modal" class="label label-warning modalConvertir"
+					 			 data-id ="<?php echo $clientes->id_prospectos ?>"  >Crear Nueva Oportunidad</a>
+
+					 			 <a href="#modalEditar" data-toggle="modal" class="label label-success modalEditar"
+					 			 data-id ="<?php echo $clientes->id_prospectos ?>">Editar Contacto</a>
+
 				 				<a href="#modalSeguimientoP" data-toggle="modal" class="label label-info modalSeguimientoP"
-					 			 data-id ="<?php echo $prospecto->id_prospectos ?>"  >Seguimiento</a>
-
-								<a href="#modalConvertir" data-toggle="modal" class="label label-warning modalConvertir"
-					 			 data-id ="<?php echo $prospecto->id_prospectos ?>"  >Convertir</a>					 			
-					 			
-					 			<a href="#modalEditar" data-toggle="modal" class="label label-success modalEditar"
-					 			 data-id ="<?php echo $prospecto->id_prospectos ?>">Editar</a>
-
-					 			<?= anchor('prospectos/descartar/'.$prospecto->id_prospectos,
-					 				'Descartar', array('class' => 'label label-important',
-					 							'Descartar',
-					 				 			'OnClick' => "return confirm
-					 				 	('¿Estas seguro de descartar este prospecto?')"));?>
-					 			
-					 			<?= anchor('prospectos/ver_prospecto/'.$prospecto->id_prospectos,'Ver', array('class' => 'label label-inverse','Ver'))?>
-		
+					 			 data-id ="<?php echo $clientes->id_prospectos ?>"  >Seguimiento Post-Venta</a>
+				 				
+				 				<?= anchor('clientes/ver_cliente/'.$clientes->id_ventas,'Ver', array('class' => 'label label-inverse','Ver'))?>	
+					 			 
 				 			</td>
 				 		</tr>
-				 		<?php endforeach; ?>   		
+
+				 		<?php endforeach; ?>  
+				 		
 				 	</tbody>
+
 				 </table>
-		</div> <!-- .table-responsive-->		
-	</div> <!--.row-fluid -->
+
+			</div>
+
+		</div>
+		
+	</div>
+
 
 <!-- MODAL NUEVO EDITAR-->
 <div id="modalEditar" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -411,6 +430,28 @@
 			<link href="<?= base_url('css/timepicker.css')?>" rel="stylesheet"  type= "text/css" media="screen">
 			<link href="<?= base_url('css/oportunidades.css')?>" rel="stylesheet"  type= "text/css" media="screen">
 
+
+
+
+
+
+			<!-- Jquery Validation-->
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>	
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+
+			<script src="<?= base_url('js/validaciones.js')?>"></script>
+			<script src="<?= base_url('js/editar_prospecto.js')?>"></script>
+			<script src="<?= base_url('js/seguimiento.js')?>"></script>
+			<script src="<?= base_url('js/convertir.js')?>"></script>
+			<script src="<?= base_url('js/valid_opt.js')?>"></script>
+			<script src="<?= base_url('js/seguimiento_opt.js')?>"></script>
+			<!-- Calcula comisión-->
+			<script src="<?= base_url('js/calcular_comision.js')?>"></script>
+			
+
+			<link href="<?= base_url('css/seguimientop.css')?>" rel="stylesheet"  type= "text/css" media="screen">
+			<link href="<?= base_url('css/timepicker.css')?>" rel="stylesheet"  type= "text/css" media="screen">
+			<link href="<?= base_url('css/oportunidades.css')?>" rel="stylesheet"  type= "text/css" media="screen">
 
 
 

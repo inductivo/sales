@@ -1,5 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
 
+body .modal-convertir
+{
+	/*width: 768px;
+	margin-left: -500px;*/
+}
 
 div.titulos
 {
@@ -23,11 +28,30 @@ div.titulos
 
 }
 
+ .frm-opt .input_txt2{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+	width: 55%;
+
+}
+
+ .frm-opt .input_txt_small{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	height: auto;
+	text-align: left;
+	width: 20%;
+
+}
+
 .frm-opt .lab{
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 18px;
 	font-weight: bold;
-	text-align: left;
 }
 
 .frm-opt .control-align
@@ -47,6 +71,11 @@ div.titulos
 {
 	font-size: 20px;
 	font-family: 'Helvetica', sans-serif;
+}
+
+.frm-opt div.margen
+{
+	margin-top: 10px;
 }
 
 thead.thead-opt {
@@ -194,5 +223,11 @@ strong.titulo-prosp
 {
 	margin-bottom: 20px;
 }
- 
+
+.frm-opt div.margentop
+{
+	margin-top: 15px;
+}
+
+
 

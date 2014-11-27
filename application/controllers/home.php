@@ -6,6 +6,11 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->library('usuariosLib');
 		$this->load->model('model_usuarios');
+		$this->load->model('model_administracion');
+		$this->load->model('model_prospectos');
+		$this->load->model('model_oportunidades');
+		$this->load->model('model_clientes');
+		$this->load->model('model_agenda');
 		
 		/* Mensajes de Validaciòn */
 		$this->form_validation->set_message('validar_credenciales', '<strong>Email</strong> ó <strong>Password</strong> Incorrecto');
@@ -64,6 +69,9 @@ class Home extends CI_Controller {
 			{
 				$data['contenido'] = 'administrador/agenda/dashboard';
 				$data['titulo'] = 'Dashboard ADMIN';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
 				$this->load->view('templates/template_admin',$data);
 			}
 			else if ($perfil->nivel == 1)
@@ -71,12 +79,18 @@ class Home extends CI_Controller {
 				
 					$data['contenido'] = 'mandosmedios/agenda/dashboard';
 					$data['titulo'] = 'Dashboard MM';
+					$data['paises'] = $this->model_administracion->obtener_paises();
+			   		$data['estados'] = $this->model_administracion->obtener_estados();
+					$data['origen'] = $this->model_prospectos->obtener_origen();
 					$this->load->view('templates/template_mm',$data);
 				
 			} else if ($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'ejecutivo/agenda/dashboard';
 				$data['titulo'] = 'Dashboard EV';
+				$data['paises'] = $this->model_administracion->obtener_paises();
+			    $data['estados'] = $this->model_administracion->obtener_estados();
+				$data['origen'] = $this->model_prospectos->obtener_origen();
 				$this->load->view('templates/template_ev',$data);
 			}
 			else
@@ -129,10 +143,9 @@ class Home extends CI_Controller {
 		}
 		else
 		{
-			echo "<div class='alert alert-success alert-autocloseable-success'>
-        			La <b>Contraseña</b> se cambio correctamente
-        			<a class='close' data-dismiss='alert' href='#''>&times;</a>
-				</div>";
+
+			echo '<div class="alert alert-success caja-error alerta" align="center"><strong>La CONTRASEÑA</strong>, se cambio correctamente<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
+
 
 			$this->dashboard();
 		}
