@@ -3,6 +3,8 @@
 $(document).ready(function(){
 
 	$('.modalSeguimientoP').on('click', peticion);
+	$('.modalReagendar').on('click', peticion);
+	//$('.modalActOk').on('click', peticion);
 
 	function peticion(){
 		var id = $(this).attr('data-id');

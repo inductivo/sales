@@ -28,18 +28,15 @@
 				      </a>
 
 				      <a class="brand" href="<?php echo site_url('administracion/panelcontrol')?>">
-				      	<?= $this->session->userdata('nombre'); ?>
-				      	<?= $this->session->userdata('apellidos'); ?>
+				      	Prospectus
 				      </a>
 
 				      <div class="nav-collapse collapse">
 				      	<ul class="nav">
 				      		<li class="divider-vertical"></li>
 				      		<li><a><?= $titulo ?></a></li>
-				      		<li><a href="<?php echo site_url('administracion/agregar_empresa')?>">Nueva Empresa</a>
-				      		</li>
-				      		<li><a href="#">Consultas</a>
-				      		</li>
+				      		<!-- <li><a href="#">Nueva Empresa</a></li> 
+				      			<li><a href="#">Consultas</a></li> -->
 
 				      	</ul>
 
@@ -59,23 +56,7 @@
 
 
 		<footer>
-			<div class="navbar navbar-default">
-				<div class="container">
-
-					<ul class="nav pull-left">
-				      		<li class="divider-vertical"></li>
-				      		<li><a class="text-center"><?= $this->session->userdata('email');?></a></li>
-				      		<li><a class="text-center"><?= date('d-m-Y H:i'); ?></a></li>
-				    </ul>
-
-				    <ul class="nav pull-right">
-				      		<li><a class="text-center">© Copyright 2014 Suma Ventas Consultores, SC. Todos los derechos reservados</a></li>
-				      		<li class="divider-vertical"></li>
-				    </ul>
-
-				</div>
 			
-			</div>
 
 			
 			<script src="<?= base_url('js/bootstrap.min.js')?>"></script> 

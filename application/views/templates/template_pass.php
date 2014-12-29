@@ -56,8 +56,8 @@
 					      			</a>
 					      			<ul class="dropdown-menu">
 					      				<li class="nav-header">Mi cuenta</li>
-					      				<li><a href="<?php echo site_url('home/cambiar_password')?>"><i class="fa fa-asterisk"></i>Cambiar contraseña</a></li>
-					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><font color="red"><i class="fa fa-power-off"></i></font>  Cerrar sesión</a></li>
+					      				<li><a href="<?php echo site_url('home/cambiar_password')?>"><i class="fa fa-asterisk"></i> Cambiar contraseña</a></li>
+					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
 					      			</ul>
 					      		</li> 		
 					      	</ul>
@@ -73,59 +73,6 @@
 			<div class="container">
 				<div class="row-fluid">
 					<div class="span12">
-
-						<ul class="nav nav-tabs">
-
-							 <li><?= anchor('home/dashboard','<i class=" fa fa-calendar fa-lg fa-fw "></i> Agenda'); ?></li>
-
-							 <li><?= anchor('prospectos/index','<i class=" fa fa-user fa-lg fa-fw "></i> Prospectos'); ?></li>
-
-							 <li><?= anchor('oportunidades/index','<i class=" fa fa-dot-circle-o fa-lg fa-fw "></i> Oportunidades'); ?></li>
-
-							 <li><?= anchor('clientes/index','<i class=" fa fa-group fa-lg fa-fw "></i> Clientes'); ?></li>
-
-							 <li class="dropdown">
-							    <a lass="dropdown-toggle" data-toggle="dropdown"  href="#">
-							    	<i class="fa fa-wrench fa-lg fa-fw"></i> Herramientas
-							     	<b class="caret"></b>
-							    </a>
-
-							      	<ul class="dropdown-menu">
-							      		<li> <a href="#"><i class="fa fa-download"></i> Importar Prospectos</a> </li>
-							      	</ul>
-							 </li>
-
-							 <li class="dropdown">
-							    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							      	<i class="fa fa-bar-chart-o fa-lg fa-fw"></i> Reportes
-							      	<b class="caret"></b>
-							    </a>
-
-							      	<ul class="dropdown-menu">
-							      		<li><?= anchor('reportes/index','<i class="fa fa-bar-chart"></i> Reportes de Prospección'); ?></li>
-							      		<li><?= anchor('reportes/opt_generadas','<i class="fa fa-area-chart"></i> Oportunidades Generadas'); ?></li>
-							      		<li><?= anchor('reportes/ventas_generadas','<i class="fa fa-line-chart"></i> Ventas Generadas'); ?></li>
-							      		<li><?= anchor('reportes/prospectos_descartados','<i class="fa fa-times-circle"></i> Prospectos Descartados'); ?></li>
-
-
-							      	</ul>
-
-							 </li>
-
-						<!--	 <li class="dropdown">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							      	<i class="fa fa-cog fa-lg fa-fw"></i> Administraciòn
-							      	<b class="caret"></b>
-							    </a>
-
-							     	<ul class="dropdown-menu">
-							      		
-							      		<li> <a href="#"><i class="fa fa-male"></i> Usuarios</a> </li>
-							      	</ul>
-
-							 </li>-->
-
-						</ul>
 
 						<?= $this->load->view($contenido); ?>
 

@@ -122,12 +122,17 @@ body .img-margen
 }
 
 body .margen-form{
-	margin: 0% 9%;
+	margin: 0% 15%;
 }
 
 body .p-top{
 	margin: 2% 0% 5% 0%;
 }
 
+
+body i.fin{
+	margin-bottom: 0%;
+	margin-top:0%;
+}
 
 

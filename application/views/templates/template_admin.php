@@ -47,7 +47,7 @@
 					      	</ul>
 
 					      	<ul class="nav pull-right">
-					      		<li><a href="#">Alertas <span class="badge badge-important">17</span></a></li>
+					      		<!-- <li><a href="#">Alertas <span class="badge badge-important">17</span></a></li> -->
 					      		<li class="dropdown">
 					      			<a href="#" class="dropdown-toggle nombre_usuario" data-toggle="dropdown">
 					      				<i class="fa fa-user fa-lg"></i>
@@ -57,7 +57,7 @@
 					      			<ul class="dropdown-menu">
 					      				<li class="nav-header">Mi cuenta</li>
 					      				<li><a href="<?php echo site_url('home/cambiar_password')?>"><i class="fa fa-asterisk"></i> Cambiar contraseña</a></li>
-					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
+					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><font color="red"><i class="fa fa-power-off"></i></font> Cerrar sesión</a></li>
 					      			</ul>
 					      		</li> 		
 					      	</ul>
@@ -92,7 +92,6 @@
 
 							      	<ul class="dropdown-menu">
 							      		<li> <a href="#"><i class="fa fa-download"></i> Importar Prospectos</a> </li>
-							      		<li> <a href="#"><i class="fa fa-upload"></i> Exportar Prospectos</a> </li>
 							      	</ul>
 							 </li>
 
@@ -103,9 +102,13 @@
 							    </a>
 
 							      	<ul class="dropdown-menu">
-							      		<li> <a href="#"> Reportes de Prospecciòn</a> </li>
-							      		<li> <a href="#"> Reportes de Clientes</a> </li>
-							      		<li> <a href="#"> Reportes de Ventas</a> </li>
+							      		
+							      		<li><?= anchor('reportes/index','<i class="fa fa-bar-chart"></i> Reportes de Prospección'); ?></li>
+							      		<li><?= anchor('reportes/opt_generadas','<i class="fa fa-area-chart"></i> Oportunidades Generadas'); ?></li>
+							      		<li><?= anchor('reportes/ventas_generadas','<i class="fa fa-line-chart"></i> Ventas Generadas'); ?></li>
+							      		<li><?= anchor('reportes/prospectos_descartados','<i class="fa fa-times-circle"></i> Prospectos Descartados'); ?></li>
+							      		
+
 							      	</ul>
 
 							 </li>
@@ -117,7 +120,6 @@
 							    </a>
 
 							     	<ul class="dropdown-menu">
-							      		<li> <a href="#"><i class="fa fa-times-circle"></i> Prospectos Descartados</a> </li>
 							      		<li> <a href="#"><i class="fa fa-male"></i> Usuarios</a> </li>
 							      	</ul>
 

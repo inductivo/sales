@@ -15,7 +15,7 @@
 				 		<tr>
 			                <th class="th-opt"></th>
 			                <th class="th-opt"><i class="fa fa-caret-down fa-fw"></i> Nombre y Empresa</th>
-			                <th class="th-opt">Datos de Contacto</th>                          
+			                <th class="th-opt">Cierre</th>                          
 			                <th class="th-opt">Concepto/Fase</th>
 			                <th class="th-opt">Monto</th>
 			                <th class="th-opt">Anticipos</th>
@@ -43,16 +43,7 @@
 				 				<small><?= $clientes->puesto ?></small>
 				 			</td>
 				
-				 			<td class="td-contacto"><i class="fa fa-phone fa-fw"></i>
-				 				<?= $clientes->telefono ?><br>
-				 			
-				 			<i class="fa fa-mobile fa-fw"></i>
-				 				<?= $clientes->movil ?><br>
-				 			
-				 			<i class="fa fa-envelope-o fa-fw"></i>
-				 				<?= $clientes->email ?><br>
-				 				
-				 			</td>
+				 			<td class="td-contacto"><?php $this->model_oportunidades->convertir_fecha($clientes->cierre); ?></td>
 
 				 			<td class="td-opt">
 				 				<?= $clientes->concepto?><br> 
@@ -71,7 +62,7 @@
 				 			<td class="td-acciones">
 
 				 				<a href="#modalConvertir" data-toggle="modal" class="label label-warning modalConvertir"
-					 			 data-id ="<?php echo $clientes->id_prospectos ?>"  >Crear Nueva Oportunidad</a>
+					 			 data-id ="<?php echo $clientes->id_prospectos ?>"  >Nueva Oportunidad</a>
 
 					 			 <a href="#modalEditar" data-toggle="modal" class="label label-success modalEditar"
 					 			 data-id ="<?php echo $clientes->id_prospectos ?>">Editar Contacto</a>
@@ -79,7 +70,7 @@
 				 				<a href="#modalSeguimientoP" data-toggle="modal" class="label label-info modalSeguimientoP"
 					 			 data-id ="<?php echo $clientes->id_prospectos ?>"  >Seguimiento Post-Venta</a>
 				 				
-				 				<?= anchor('clientes/ver_cliente/'.$clientes->id_ventas,'Ver', array('class' => 'label label-inverse','Ver'))?>	
+				 				<?= anchor('clientes/ver_venta/'.$clientes->id_prospectos.'/'.$clientes->id_oportunidades.'/'.$clientes->id_ventas,'Ver', array('class' => 'label label-inverse','Ver'))?>
 					 			 
 				 			</td>
 				 		</tr>

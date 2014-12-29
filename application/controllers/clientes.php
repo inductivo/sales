@@ -5,6 +5,7 @@ class Clientes extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('model_administracion');
+		$this->load->model('model_oportunidades');
 		$this->load->model('model_usuarios');
 		$this->load->model('model_prospectos');
 		$this->load->model('model_clientes');
@@ -31,7 +32,7 @@ class Clientes extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'clientes/index';
-				$data['titulo'] = 'Clientes Admin';
+				$data['titulo'] = 'Clientes';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -41,7 +42,7 @@ class Clientes extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'clientes/index';
-				$data['titulo'] = 'Clientes MM';
+				$data['titulo'] = 'Clientes';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -51,7 +52,7 @@ class Clientes extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'clientes/index';
-				$data['titulo'] = 'Clientes EV';
+				$data['titulo'] = 'Clientes';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();

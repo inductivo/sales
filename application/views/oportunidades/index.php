@@ -183,7 +183,7 @@
 <div id="modalSeguimientoOPT" class="modal hide fade modal-seguimiento-opt" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	    <h1><i class="fa fa-comments fa-lg"></i>  Seguimiento a la Oportunidad de Negocio</h1>
+	    <h1><i class="fa fa-comments fa-lg"></i>  Seguimiento a la Oportunidad</h1>
 	</div><!--.modal-header -->
 
 	<div class="modal-body">

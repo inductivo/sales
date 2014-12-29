@@ -4,82 +4,85 @@
                 <div class="board">
                    
                     <div class="board-inner">
-                    <ul class="nav nav-tabs" id="myTab">
-                    <div class="liner"></div>
-                     <li>
-                     <a  data-toggle="tab" title="Agregar empresa">
-                      <span class="round-tabs one">
+                      <ul class="nav nav-tabs" id="myTab">
+                        <div class="liner"></div>
+                        <li>
+                          <a  data-toggle="tab" title="Agregar empresa">
+                            <span class="round-tabs one">
                               <i class="fa fa-building-o"></i>
-                      </span> 
-                  </a></li>
+                            </span> 
+                          </a>
+                        </li>
 
-                  <li class="active"><a href="#" data-toggle="tab" title="Agregar grupos">
-                     <span class="round-tabs two">
-                         <i class="fa fa-tags"></i>
-                     </span> 
-                     </a>
-                 </li>
-                 <li><a  data-toggle="tab" title="Agregar perfiles">
-                     <span class="round-tabs three">
-                          <i class="fa fa-sitemap"></i>
-                     </span> </a>
-                     </li>
+                        <li class="active">
+                          <a href="#" data-toggle="tab" title="Agregar grupos">
+                            <span class="round-tabs two">
+                            <i class="fa fa-tags"></i>
+                            </span> 
+                          </a>
+                        </li>
+                        
+                        <li>
+                          <a  data-toggle="tab" title="Agregar perfiles">
+                            <span class="round-tabs three">
+                              <i class="fa fa-sitemap"></i>
+                            </span>
+                          </a>
+                        </li>
 
-                     <li><a data-toggle="tab" title="Agregar usuarios">
-                         <span class="round-tabs four">
+                        <li>
+                          <a data-toggle="tab" title="Agregar usuarios">
+                            <span class="round-tabs four">
                               <i class="fa fa-users"></i>
-                         </span> 
-                     </a></li>
+                            </span> 
+                          </a>
+                        </li>
 
-                     <li><a  data-toggle="tab" title="Fin de la configuración">
-                         <span class="round-tabs five">
+                        <li>
+                          <a  data-toggle="tab" title="Fin de la configuración">
+                            <span class="round-tabs five">
                               <i class="fa fa-check"></i>
-                         </span> </a>
-                     </li>
+                            </span>
+                          </a>
+                        </li>
                      
-                     </ul></div>
+                      </ul>
+                    </div><!--.board-inner -->
 
                      <div class="tab-content">
                       <div class="tab-pane fade in active" id="home">
 
+                        <div class="row-fluid" align="center">
                           <h3 class="head text-center">AGREGAR GRUPOS</h3>
                           <p class="narrow text-center">
-
                           <?= form_open('administracion/validar_grupos',array('class'=>'myform-grupos')); ?>
 
                               <?= validation_errors('<div class="alert alert-danger caja-error">','</div>'); ?>
 
-                                 <!-- SPAN 1-->
-                                  <div class="span3"></div>
-
-                                <!-- SPAN 2-->
-                                <div class="span3">
+                                  <div class="span12 btnform">
 
                                     <?=form_hidden ('id_empresas', $empresa->id_empresas);?>
-
-                                     <div class="input-append">
-                                      
+                                      <div class="input-append">
+                                    
                                         <?= form_input(array('class'=>'input_txt', 'type' => 'text', 'placeholder' => 'Agregar grupo', 'name'=>'grupo')); ?>
-
-                                    <?=form_hidden ('nivel', 1);?>
+                                        <?=form_hidden ('nivel', 1);?>
                                        
                                         <button type="submit" class="btn btn-success btn-number">
                                           <span><i class="fa fa-plus"></i></span>
                                         </button>
+                                      </div>
+                                  </div>
 
-                                </div>
 
-                                <!-- SPAN 3-->
+                          <?= form_close(); ?>
 
-                                 <div class="span3 btnform"></div>
+                        </div><!--.row-fluid -->
 
-                       <?= form_close(); ?>
+              <div class="row-fluid">
 
-                <div class="span3"></div>
-
-                <div class="span3 text-center span-center">
+                <div class="span12 text-center span-center">
                            
-                  <table class= "table table-condensed">
+                  <table class= "table table-condensed table-bordered">
                     <thead class="mithead">
                       <tr>
                         <th class="th-tabla">Grupo</th>
@@ -123,17 +126,14 @@
                     </tbody>
                   </table>
 
-                </div>
-
-                <div class="span3"></div>
-
+               
                  <p class="text-right pbtn">
                   <?= anchor('administracion/agregar_perfiles', 'Continuar',array('class' => 'btn btn-success', 'type'=>'button')); ?>
                       
                  </p>
-                          
-                            
-                      
+               
+               </div>             
+            </div> <!--.row-fluid -->         
                           
                           
             </div>

@@ -68,7 +68,7 @@ class Home extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'administrador/agenda/dashboard';
-				$data['titulo'] = 'Dashboard ADMIN';
+				$data['titulo'] = 'Agenda';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -78,7 +78,7 @@ class Home extends CI_Controller {
 			{
 				
 					$data['contenido'] = 'mandosmedios/agenda/dashboard';
-					$data['titulo'] = 'Dashboard MM';
+					$data['titulo'] = 'Agenda';
 					$data['paises'] = $this->model_administracion->obtener_paises();
 			   		$data['estados'] = $this->model_administracion->obtener_estados();
 					$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -87,7 +87,7 @@ class Home extends CI_Controller {
 			} else if ($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'ejecutivo/agenda/dashboard';
-				$data['titulo'] = 'Dashboard EV';
+				$data['titulo'] = 'Agenda';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -125,7 +125,7 @@ class Home extends CI_Controller {
 
 			$data['contenido'] = 'home/cambiar_password';
 			$data['titulo'] = 'Cambiar Password';
-			$this->load->view('templates/template_sss',$data);
+			$this->load->view('templates/template_pass',$data);
 		}
 	}
 
@@ -157,8 +157,19 @@ class Home extends CI_Controller {
 		$pass_nuevo = $this->input->post('pass_nuevo');
 		return $this->usuarioslib->cambiar_password(md5($pass_actual),md5($pass_nuevo));
 	}
+	
 
+	public function buscar_prospecto()
+	{
+		$id=$_GET['id_prospectos'];
+		$this->model_prospectos->buscar_prospecto($id);
+	}
 
+	public function buscar_actividad()
+	{
+		$id=$_GET['id_actividad'];
+		$this->model_agenda->buscar_actividad($id);
+	}
 
 }//Fin de la Clase
 

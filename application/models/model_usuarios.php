@@ -30,4 +30,5 @@ class Model_Usuarios extends CI_Model{
         $this->db->where('id_perfiles', $id_perfil);
         return $this->db->get('perfiles')->row();  
     }
+
 }

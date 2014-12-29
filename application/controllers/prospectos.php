@@ -30,7 +30,7 @@ class Prospectos extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'prospectos/index';
-				$data['titulo'] = 'Prospectos Admin';
+				$data['titulo'] = 'Prospectos';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -40,7 +40,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'prospectos/index';
-				$data['titulo'] = 'Prospectos MM';
+				$data['titulo'] = 'Prospectos';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -50,7 +50,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'prospectos/index';
-				$data['titulo'] = 'Prospectos EV';
+				$data['titulo'] = 'Prospectos';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -85,6 +85,7 @@ class Prospectos extends CI_Controller {
 		{
 			$registro = $this->input->post();
 			$registro['creacion'] = date('Y/m/d H:i');
+			$registro['ultima_actualizacion'] = date('Y/m/d H:i');
 			$id_empresa = $this->session->userdata('id_empresas');
 			$id_usuario = $this->session->userdata('id_usuarios');
 
@@ -122,7 +123,7 @@ class Prospectos extends CI_Controller {
 		if($this->form_validation->run())
 		{
 			$registro = $this->input->post();
-
+			$registro['ultima_actualizacion'] = date('Y/m/d H:i');
 
 			$this->model_prospectos->actualizar_prospecto($registro);
 			$this->index();
@@ -146,7 +147,11 @@ class Prospectos extends CI_Controller {
 		$registro['id_prospectos'] = $id;
 		$registro['status'] = 0;
 
+		$registro2['id_prospectos'] = $id;
+		$registro2['ultima_actualizacion'] = date('Y/m/d H:i');
+
 		$this->model_prospectos->descartar_prospecto($registro);
+		$this->model_prospectos->actualizar_prospecto($registro2);
 		$this->index();
 
 	}
@@ -163,7 +168,7 @@ class Prospectos extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'prospectos/ver_prospecto';
-				$data['titulo'] = 'Prospectos Admin';
+				$data['titulo'] = 'Prospectos';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -174,7 +179,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'prospectos/ver_prospecto';
-				$data['titulo'] = 'Prospectos MM';
+				$data['titulo'] = 'Prospectos';
 				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
 				$this->load->view('templates/template_mm',$data);
 			}
@@ -182,7 +187,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'prospectos/ver_prospecto';
-				$data['titulo'] = 'Prospectos EV';
+				$data['titulo'] = 'Prospectos';
 				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
 				$this->load->view('templates/template_ev',$data);	
 			}
@@ -203,7 +208,7 @@ class Prospectos extends CI_Controller {
 			{
 				
 				$data['contenido'] = 'prospectos/convertir_prospecto';
-				$data['titulo'] = 'Prospectos ADMIN';
+				$data['titulo'] = 'Prospectos';
 				$data['prospecto']= $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['fases']= $this->model_prospectos->obtener_fases();
 				$this->load->view('templates/template_admin',$data);
@@ -212,7 +217,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'prospectos/ver_prospecto';
-				$data['titulo'] = 'Prospectos MM';
+				$data['titulo'] = 'Prospectos';
 				$data['prospecto']= $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['fases']= $this->model_prospectos->obtener_fases();
 				$this->load->view('templates/template_mm',$data);
@@ -221,7 +226,7 @@ class Prospectos extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'prospectos/ver_prospecto';
-				$data['titulo'] = 'Prospectos EV';
+				$data['titulo'] = 'Prospectos';
 				$data['prospecto']= $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['fases']= $this->model_prospectos->obtener_fases();
 				$this->load->view('templates/template_ev',$data);	
@@ -326,6 +331,7 @@ class Prospectos extends CI_Controller {
 		if($this->form_validation->run())
 		{
 			$prospecto = $this->input->post('id_prospectos');
+			$usuario = $this->session->userdata('id_usuarios');
 
 			$seguimiento = array(
 				'seguimiento' => $this->input->post('seguimiento'),
@@ -352,11 +358,17 @@ class Prospectos extends CI_Controller {
 			 3->Cliente
 			 */
 
-			$this->model_prospectos->agregar_seguimiento($seguimiento,$prospecto);
-			$this->model_prospectos->agregar_actividad($actividad, $prospecto);
+			 $actualizacion = array(
+			 	'id_prospectos' => $prospecto,
+			 	'ultima_actualizacion' => date('Y/m/d H:i')
+			 	);
 
-			$this->index();
+			$this->model_prospectos->agregar_seguimiento($seguimiento,$prospecto);
+			$this->model_prospectos->agregar_actividad($actividad, $prospecto,$usuario);
+			$this->model_prospectos->actualizar_prospecto($actualizacion);
+
 			echo '<div class="alert alert-warning caja-error alerta" align="center">Agendado!<i class="fa fa-check-circle fa-fw fa-lg"></i></div>';
+			$this->index();
 
 		} else 
 		{
@@ -364,12 +376,12 @@ class Prospectos extends CI_Controller {
 		}
 
 	}
-
-
 	public function cargarFases()
 	{
 		$this->model_prospectos->cargarFases();
 	}
+
+
 
 
 }

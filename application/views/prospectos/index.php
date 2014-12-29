@@ -14,7 +14,6 @@
 				 		<tr>
 			                <th class="th-prosp"></th>
 			                <th class="th-prosp"><i class="fa fa-caret-down fa-fw"></i> Nombre y Empresa</th>
-			                <th class="th-prosp">Puesto</th>
 			                <th class="th-prosp">Datos de Contacto</th>                          
 			                <th class="th-prosp"><i class="fa fa-caret-down fa-fw"></i> Creación</th>
 			                <th class="th-prosp">Acciones</th> 
@@ -33,10 +32,11 @@
 				 		<tr>
 				 			<td class="td-prosp"> <?php echo  $var = $var+1; ?></td>
 				 			<td class="td-prosp nombre"><?= $prospecto->titulo ?>
-				 				<?= $prospecto->nombre ?> <?= $prospecto->apellidos ?>
-				 				<h5><?= $prospecto->empresa ?></h5>
+				 				<?= $prospecto->nombre ?> <?= $prospecto->apellidos ?><br>
+				 				<strong><?= $prospecto->empresa ?></strong><br>
+				 				<small><?= $prospecto->puesto ?></small>
 				 			</td>
-				 			<td class="td-prosp"><?= $prospecto->puesto ?></td>
+
 				 			<td class="td-contacto"><i class="fa fa-phone fa-fw"></i>
 				 				<?= $prospecto->telefono ?><br>
 				 			
@@ -75,7 +75,8 @@
 				 		<?php endforeach; ?>   		
 				 	</tbody>
 				 </table>
-		</div> <!-- .table-responsive-->		
+			</div> <!-- .table-responsive-->
+		</div> <!--.span12-->
 	</div> <!--.row-fluid -->
 
 <!-- MODAL NUEVO EDITAR-->

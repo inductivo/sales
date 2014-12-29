@@ -43,21 +43,17 @@
                       <div class="tab-pane fade in active" id="home">
 
                          
-                         <h3 class="head text-center">  LA CONFIGURACIÓN INICIAL A TERMINADO 
-                            
-                          </h3>
-                          
-                          <p class="narrow text-center"> 
-                            <?= anchor('home','<i class=" fa fa-laptop"> </i> Acceder al sistema ',array('class'=>'btn btn-link')); ?>
-                             
-                          </p>
+                        <h3 class="head text-center"> 
+                        <a href="<?php echo site_url('home')?>"><i class="fa fa-laptop fa-5x fin"></i></a><br>
+                          LA CONFIGURACIÓN INICIAL A TERMINADO                        
+                        </h3>
 
-                     
+                      </div>
+                         
 
                       </div>
 
-
-</div>
+                      
 
 </div>
 
@@ -66,5 +62,5 @@
 </div>
 </section>
 
-<div class="clearfix"></div>
+
 

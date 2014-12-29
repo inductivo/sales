@@ -39,7 +39,7 @@ class Model_Oportunidades extends CI_Model{
         $fecha_m = explode("-", $fecha);
         $dia_m =$fecha_m[2];
         $mes_m =$fecha_m[1];
-        $nombre_mes=strftime("%B",mktime(0, 0, 0, $mes_m, 1, 2000)); 
+        $nombre_mes=strftime("%b",mktime(0, 0, 0, $mes_m, 1, 2000)); 
         $anio_m=$fecha_m[0];
         $fecha_final= $dia_m.'-'.$nombre_mes.'-'.$anio_m;
         
@@ -245,8 +245,8 @@ class Model_Oportunidades extends CI_Model{
       $this->db->join('oportunidades_seguimiento','seguimiento.id_seguimiento = oportunidades_seguimiento.id_seguimiento','inner'); 
       $this->db->where('id_oportunidades', $opt);
 
-      $this->db->order_by('seguimiento.fecha','desc');
-      $this->db->order_by('seguimiento.hora','desc');
+      $this->db->order_by('seguimiento.id_seguimiento','desc');
+      //$this->db->order_by('seguimiento.hora','asc');
 
       $query = $this->db->get();
       return $query->result();
@@ -271,7 +271,7 @@ class Model_Oportunidades extends CI_Model{
 
     }
 
-    public function agregar_actividad($actividad, $ido)
+    public function agregar_actividad($actividad, $ido,$idp,$usuario)
     {
       $this->db->set($actividad);
       $this->db->insert('actividad');
@@ -287,6 +287,26 @@ class Model_Oportunidades extends CI_Model{
 
       $this->db->set($act_opt);
       $this->db->insert('actividad_oportunidades');
+
+
+      $act_prosp = array(
+        'id_actividad' => $query->id_actividad,
+        'id_prospectos' => $idp
+        );
+
+      $this->db->set($act_prosp);
+      $this->db->insert('actividad_prospectos');
+
+     
+       /*Se agrega a la tabla Actividad - Usuarios*/ 
+      $act_user = array(
+        'id_actividad' => $query->id_actividad,
+        'id_usuarios' => $usuario
+        );
+
+      $this->db->set($act_user);
+      $this->db->insert('actividad_usuarios');
+
     }
 
     public function mostrar_actividad($opt)
@@ -296,8 +316,9 @@ class Model_Oportunidades extends CI_Model{
       $this->db->join('actividad_oportunidades','actividad.id_actividad = actividad_oportunidades.id_actividad','inner');
       $this->db->join('estatus','estatus.id_estatus = actividad.estatus');
       $this->db->where('id_oportunidades',$opt);
-      $this->db->order_by('actividad.fecha','desc');
-      $this->db->order_by('actividad.hora','desc');
+      
+      $this->db->order_by('actividad.id_actividad','desc');
+      //$this->db->order_by('actividad.hora','asc');
 
       $query = $this->db->get();
       return $query->result();

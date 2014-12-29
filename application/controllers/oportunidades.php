@@ -28,7 +28,7 @@ class Oportunidades extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'oportunidades/index';
-				$data['titulo'] = 'Oportunidades Admin';
+				$data['titulo'] = 'Oportunidades';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -38,7 +38,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'oportunidades/index';
-				$data['titulo'] = 'Oportunidades MM';
+				$data['titulo'] = 'Oportunidades';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -48,7 +48,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{	
 				$data['contenido'] = 'oportunidades/index';
-				$data['titulo'] = 'Oportunidades EV';
+				$data['titulo'] = 'Oportunidades';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -73,7 +73,7 @@ class Oportunidades extends CI_Controller {
 			{
 				
 				$data['contenido'] = 'oportunidades/venta';
-				$data['titulo'] = 'Oportunidades Admin';
+				$data['titulo'] = 'Oportunidades';
 				$data['prospecto'] = $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['oportunidad'] = $this->model_oportunidades->info_oportunidad($id_oportunidad);
 				$this->load->view('templates/template_admin',$data);
@@ -82,7 +82,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'oportunidades/venta';
-				$data['titulo'] = 'Oportunidades MM';
+				$data['titulo'] = 'Oportunidades';
 				$data['prospecto'] = $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['oportunidad'] = $this->model_oportunidades->info_oportunidad($id_oportunidad);
 				$this->load->view('templates/template_mm',$data);
@@ -91,7 +91,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'oportunidades/venta';
-				$data['titulo'] = 'Oportunidades EV';
+				$data['titulo'] = 'Oportunidades';
 				$data['prospecto'] = $this->model_prospectos->info_prospecto($id_prospecto);
 				$data['oportunidad'] = $this->model_oportunidades->info_oportunidad($id_oportunidad);
 				$this->load->view('templates/template_ev',$data);	
@@ -291,7 +291,7 @@ class Oportunidades extends CI_Controller {
 			if($perfil->nivel == 0)
 			{
 				$data['contenido'] = 'oportunidades/ver_opt';
-				$data['titulo'] = 'Oportunidad ADMIN';
+				$data['titulo'] = 'Oportunidad';
 				$data['paises'] = $this->model_administracion->obtener_paises();
 			    $data['estados'] = $this->model_administracion->obtener_estados();
 				$data['origen'] = $this->model_prospectos->obtener_origen();
@@ -303,7 +303,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 1)
 			{
 				$data['contenido'] = 'oportunidades/ver_opt';
-				$data['titulo'] = 'Oportunidad MM';
+				$data['titulo'] = 'Oportunidad';
 				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
 				$this->load->view('templates/template_mm',$data);
 			}
@@ -311,7 +311,7 @@ class Oportunidades extends CI_Controller {
 			else if($perfil->nivel == 2)
 			{
 				$data['contenido'] = 'oportunidades/ver_opt';
-				$data['titulo'] = 'Oportunidad EV';
+				$data['titulo'] = 'Oportunidad';
 				$data['prospecto'] = $this->model_prospectos->ver_prospecto($id_prospecto);
 				$this->load->view('templates/template_ev',$data);	
 			}
@@ -342,6 +342,7 @@ class Oportunidades extends CI_Controller {
 
 			$idp= $this->input->post('id_prospectos');
 			$ido= $this->input->post('id_oportunidades');
+			$usuario = $this->session->userdata('id_usuarios');
 
 			//FALTA AGREGAR LOS COMENTARIOS AL SEGUIMIENTO
 			$comentarios = array(
@@ -360,7 +361,7 @@ class Oportunidades extends CI_Controller {
 		
 
 			$this->model_oportunidades->agregar_seguimiento($this->input->post('id_oportunidades'),$comentarios);
-			$this->model_oportunidades->agregar_actividad($actividad,$ido);
+			$this->model_oportunidades->agregar_actividad($actividad,$ido,$idp,$usuario);
 
 			$config['upload_path'] = 'uploads';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ppt|pptx';

@@ -150,6 +150,19 @@ class Model_Prospectos extends CI_Model{
 
     }
 
+    public function numprospectos_descartados($id_empresa)
+    {
+
+       $this->db->select('empresas_prospectos.*,prospectos_usuarios.*');
+       $this->db->from('empresas_prospectos');
+       $this->db->join('prospectos_usuarios','empresas_prospectos.id_prospectos = prospectos_usuarios.id_prospectos','inner');
+       $this->db->where('empresas_prospectos.id_empresas', $id_empresa);
+       $this->db->where('prospectos_usuarios.status',0);
+        
+       return $this->db->count_all_results();
+    }
+    
+
     public function ver_prospecto($id_prospecto)
     {
       $this->db->select('prospectos.*,estados.estado,origen.origen,paises.pais');
@@ -214,8 +227,27 @@ class Model_Prospectos extends CI_Model{
       $this->db->where('id_prospectos',$query3->id_prospectos);
       $this->db->update('prospectos_usuarios');
 
+      /*Se crea el arreglo y se inserta en la tabla prospectos_oportunidades*/
+      $prosp_opt = array(
+
+          'id_prospectos' => $query3->id_prospectos,
+          'id_oportunidades' => $query->id_oportunidades,
+          'id_usuarios' => $id_usuario,
+          'id_empresas' => $id_empresa
+        );
+      $this->db->set($prosp_opt);
+      $this->db->insert('prospectos_oportunidades');
+
+      $actualizacion = array(
+        'id_prospectos' => $query3->id_prospectos,
+        'ultima_actualizacion' => date('Y/m/d H:i')
+        );
+
+      $this->model_prospectos->actualizar_prospecto($actualizacion);
 
     }
+
+    
 
     public function agregar_archivo($archivo)
     {
@@ -259,7 +291,7 @@ class Model_Prospectos extends CI_Model{
 
     }
 
-    public function agregar_actividad($actividad,$prospecto)
+    public function agregar_actividad($actividad,$prospecto,$usuario)
     {
       $this->db->set($actividad);
       $this->db->insert('actividad');
@@ -275,6 +307,16 @@ class Model_Prospectos extends CI_Model{
 
       $this->db->set($act_prosp);
       $this->db->insert('actividad_prospectos');
+
+       /*Se agrega a la tabla Actividad - Usuarios*/ 
+      $act_user = array(
+        'id_actividad' => $query->id_actividad,
+        'id_usuarios' => $usuario
+        );
+
+      $this->db->set($act_user);
+      $this->db->insert('actividad_usuarios');
+
     }
 
 public function mostrar_seguimiento($prospecto)
@@ -283,8 +325,8 @@ public function mostrar_seguimiento($prospecto)
   $this->db->from('seguimiento');
   $this->db->join('prospectos_seguimiento','seguimiento.id_seguimiento = prospectos_seguimiento.id_seguimiento','inner');
   $this->db->where('id_prospectos', $prospecto);
-  $this->db->order_by('seguimiento.fecha','desc');
-  $this->db->order_by('seguimiento.hora','desc');
+  $this->db->order_by('seguimiento.id_seguimiento','desc');
+  //$this->db->order_by('seguimiento.hora','desc');
 
   $query = $this->db->get();
   return $query->result();
@@ -297,8 +339,8 @@ public function mostrar_actividad($prospecto)
   $this->db->join('actividad_prospectos','actividad.id_actividad = actividad_prospectos.id_actividad','inner');
   $this->db->join('estatus','estatus.id_estatus = actividad.estatus');
   $this->db->where('id_prospectos',$prospecto);
-  $this->db->order_by('actividad.fecha','desc');
-  $this->db->order_by('actividad.hora','desc');
+  $this->db->order_by('actividad.id_actividad','desc');
+  //$this->db->order_by('actividad.hora','desc');
 
   $query = $this->db->get();
   return $query->result();
