@@ -31,4 +31,31 @@ class Model_Usuarios extends CI_Model{
         return $this->db->get('perfiles')->row();  
     }
 
+    function mostrar_usuarios($id_empresa)
+    {
+
+      $this->db->select('usuarios.*,estados.*,paises.*,grupos.*,perfiles.*');
+      $this->db->from('usuarios');
+      $this->db->join('estados','usuarios.estado = estados.id','inner');
+      $this->db->join('paises','usuarios.pais = paises.id','inner');
+      $this->db->join('grupos','usuarios.id_grupos = grupos.id_grupos','inner');
+      $this->db->join('perfiles','usuarios.id_perfiles = perfiles.id_perfiles','inner');
+      $this->db->where('usuarios.id_empresas',$id_empresa);
+
+      $query = $this->db->get();
+      return $query->result();
+
+    }
+
+    function numusuarios($id_empresa)
+    { 
+        $this->db->select('usuarios.*');
+        $this->db->from('usuarios');
+        $this->db->where('id_empresas',$id_empresa);
+        return $this->db->count_all_results();
+
+    }
+
+
+
 }

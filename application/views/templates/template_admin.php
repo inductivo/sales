@@ -120,7 +120,7 @@
 							    </a>
 
 							     	<ul class="dropdown-menu">
-							      		<li> <a href="#"><i class="fa fa-male"></i> Usuarios</a> </li>
+							      		<li><?= anchor('usuarios/mostrar_usuarios','<i class="fa fa-male"></i> Usuarios'); ?></li>
 							      	</ul>
 
 							 </li>

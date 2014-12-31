@@ -64,10 +64,10 @@
 				 			$var = 0;
 				 			$prosp= $this->model_agenda->mostrar_agenda($this->session->userdata('id_usuarios'));
 				 			foreach ($prosp as $agenda):
+				 			$this->model_agenda->fecha_vencida($agenda->fecha,$var);
 				 		?>
-				 		
-				 		<tr>
-				 			<td class="td-prosp"> <?php echo  $var = $var+1; ?></td>
+				 			<!--Se imprime <tr> -->
+				 			<td class="td-prosp"> <?php echo  $var = $var+1; ?>	</td>
 				 			
 				 			<td class="td-prosp"><?php $this->model_oportunidades->convertir_fecha($agenda->fecha); ?></td>
 				 			<td class="td-prosp"><?= $agenda->hora ?></td>

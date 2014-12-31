@@ -390,6 +390,7 @@ class Administracion extends CI_Controller {
 
 			$this->model_administracion->agregar_usuario($usuario);
 
+
 			$this->enviar_email($usuario);
 			$this->agregar_usuarios();
 

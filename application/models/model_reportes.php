@@ -131,11 +131,11 @@ class Model_Reportes extends CI_Model{
    {
 
       $this->db->select('empresas_oportunidades.*,oportunidades_usuarios.*');
-       $this->db->from('empresas_oportunidades');
-       $this->db->join('oportunidades_usuarios','empresas_oportunidades.id_oportunidades = oportunidades_usuarios.id_oportunidades','inner');
+      $this->db->from('empresas_oportunidades');
+      $this->db->join('oportunidades_usuarios','empresas_oportunidades.id_oportunidades = oportunidades_usuarios.id_oportunidades','inner');
        
-       $this->db->where('empresas_oportunidades.id_empresas', $id_empresa);
-       $this->db->where('oportunidades_usuarios.status',1);
+      $this->db->where('empresas_oportunidades.id_empresas', $id_empresa);
+      $this->db->where('oportunidades_usuarios.status',1);
         
        return $this->db->count_all_results();
 

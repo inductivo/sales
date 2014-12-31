@@ -86,4 +86,21 @@ class Model_Agenda extends CI_Model{
         echo $json;   
       }
 
+      public function fecha_vencida($fecha,$var)
+    {
+        
+      $fecha_actual = strtotime(date("d-m-Y"));
+      $fecha_entrada = strtotime($fecha);
+        
+      if($fecha_actual > $fecha_entrada){
+          if($var == 0)
+          {
+           echo '<span class="badge badge-important">Existen Fechas Vencidas</span> <br> <br>'; 
+          }
+          
+        echo '<tr class="error" >';
+        }else
+        {echo '<tr>'; }    
+    }
+
 }
