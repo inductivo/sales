@@ -171,5 +171,10 @@ class Home extends CI_Controller {
 		$this->model_agenda->buscar_actividad($id);
 	}
 
+	public function obtener_tipo_email()
+	{
+		$this->model_usuarios->obtener_tipo_email();
+	}
+
 }//Fin de la Clase
 

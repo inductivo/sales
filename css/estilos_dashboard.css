@@ -1,5 +1,4 @@
 
-
 	
 	.cuerpo{
 		margin: 60px 60px 60px 60px;
@@ -10,8 +9,6 @@
 		margin: 0 auto;
 		
 	}
-
-
 	
 	.myform{
 
@@ -83,6 +80,12 @@
 		font-size: 12px;
 	}
 	
+	/* Margen de los campos*/
+	div.margentop
+	{
+		margin-top: 10px;
+	}
+
 		
 	footer{
 

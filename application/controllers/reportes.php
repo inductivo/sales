@@ -183,6 +183,11 @@ class Reportes extends CI_Controller {
 
 	}
 
+	public function obtener_tipo_email()
+	{
+		$this->model_usuarios->obtener_tipo_email();
+	}
+
 
 }//Fin de la Clase
 

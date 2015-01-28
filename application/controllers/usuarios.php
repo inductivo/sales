@@ -48,6 +48,12 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
+	public function obtener_tipo_email()
+	{
+		$this->model_usuarios->obtener_tipo_email();
+	}
+
+
 	
 
 

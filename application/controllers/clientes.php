@@ -73,6 +73,11 @@ class Clientes extends CI_Controller {
 	{
 		$this->model_prospectos->cargarFases();
 	}
+
+	public function obtener_tipo_email()
+	{
+		$this->model_usuarios->obtener_tipo_email();
+	}
 	
 
 }

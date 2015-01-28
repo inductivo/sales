@@ -1,10 +1,5 @@
 
 
-
-
-
-	<div class="titulos">Realizar Venta</div>
-
 	<div class="row" align="center">			
 		<div class="span12">
 			<div class="alert alert-info">

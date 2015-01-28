@@ -57,6 +57,7 @@
 					      			<ul class="dropdown-menu">
 					      				<li class="nav-header">Mi cuenta</li>
 					      				<li><a href="<?php echo site_url('home/cambiar_password')?>"><i class="fa fa-asterisk"></i>Cambiar contraseña</a></li>
+					      				<li><a href="#"><i class="fa fa-envelope-square"></i> Configurar email</a></li>
 					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><font color="red"><i class="fa fa-power-off"></i></font>  Cerrar sesión</a></li>
 					      			</ul>
 					      		</li> 		

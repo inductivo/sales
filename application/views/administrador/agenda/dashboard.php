@@ -84,7 +84,9 @@
 				 				<?= $agenda->movil ?><br>
 				 			
 				 			<i class="fa fa-envelope-o fa-fw"></i>
-				 				<?= $agenda->email ?><br>
+				 			<a href="#modalEnviar" data-toggle="modal" class="modalEnviar"
+					 			 data-id ="<?php echo $agenda->id_prospectos ?>"><?= $agenda->email ?></a><br>
+				 				
 				 				
 				 			</td>
 				 		

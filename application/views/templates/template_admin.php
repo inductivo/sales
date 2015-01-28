@@ -10,6 +10,14 @@
 		<script src="//code.jquery.com/jquery-1.11.1.js"></script>
 		<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 		<script type="text/javascript" src="<?= base_url('js/tablesorter.min.js')?>"></script>
+		<script src="<?= base_url('js/tipo_email.js')?>"></script>
+
+		<script type="text/javascript" src="<?= base_url('js/tinymce/tinymce.min.js')?>"></script>
+		<script type="text/javascript">
+			tinymce.init({
+    			selector: "textarea.editorEmail"
+ 			});
+		</script>
 		
 		
 		<link href="<?= base_url('css/bootstrap.min.css')?>" rel="stylesheet" media="screen">
@@ -43,7 +51,7 @@
 					      	<ul class="nav">
 					      		<li class="divider-vertical"></li>
 					      		<li><a><?= $titulo ?></a></li>
-					      		<li><a data-toggle="modal" href="#myModal" data-target="#myModal" class="mymodal"><i class="fa fa-plus-square"></i> Nuevo Prospecto</a></li>
+					      		<li><a data-toggle="modal" href="#myModal" data-target="#myModal" class="mymodal"><i class="fa fa-plus-square fa-lg"></i> Nuevo Prospecto</a></li>
 					      	</ul>
 
 					      	<ul class="nav pull-right">
@@ -57,6 +65,7 @@
 					      			<ul class="dropdown-menu">
 					      				<li class="nav-header">Mi cuenta</li>
 					      				<li><a href="<?php echo site_url('home/cambiar_password')?>"><i class="fa fa-asterisk"></i> Cambiar contraseña</a></li>
+					      				<li><a data-toggle="modal" href="#modalEmail" data-target="#modalEmail" class="modalEmail"><i class="fa fa-envelope-o"></i> Configurar email</a></li>
 					      				<li><a href="<?php echo site_url('home/cerrar_sesion')?>" ><font color="red"><i class="fa fa-power-off"></i></font> Cerrar sesión</a></li>
 					      			</ul>
 					      		</li> 		
@@ -91,7 +100,7 @@
 							    </a>
 
 							      	<ul class="dropdown-menu">
-							      		<li> <a href="#"><i class="fa fa-download"></i> Importar Prospectos</a> </li>
+							      		<li><a data-toggle="modal" href="#modalImportar" data-target="#modalImportar" class="modalImportar"><i class="fa fa-download"></i> Importar Prospectos</a></li>
 							      	</ul>
 							 </li>
 
@@ -138,15 +147,15 @@
 
 
 
-				<!-- MODAL NUEVO PROSPECTO -->
-				<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-				</button>
-				<h1 class="modal-title"> <i class=" fa fa-user fa-lg"></i> Nuevo Prospecto</h1>
-			</div>
+		<!-- MODAL NUEVO PROSPECTO -->
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+					</button>
+					<h1 class="modal-title"> <i class=" fa fa-user fa-lg"></i> Nuevo Prospecto</h1>
+				</div>
 			<div class="modal-body">
 				<div>
 					<?= form_open('prospectos/validar_prospecto',array('class'=>'frm-prosp form-horizontal','id' => 'frmnuevoprosp')); ?>
@@ -293,11 +302,173 @@
 
 			
 
+			</div>
 		</div>
+		<?= form_close(); ?>
 	</div>
-	<?= form_close(); ?>
+
+<!-- MODAL CONFIGURAR EMAIL -->
+	<div id="modalEmail" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+					</button>
+					<h1 class="modal-title"> <i class=" fa fa-envelope fa-lg"></i> Configurar email</h1>
 				</div>
+			<div class="modal-body">
 				
+					<?= form_open('usuarios/configurar_email',array('class'=>'frm-prosp frmconfemail form-horizontal','id' => 'frmconfemail')); ?>	
+
+					<div class="row-fluid">
+						<div class="span12">	
+							<label class="lab" for="tipo_email"><font color="red"><strong>*</strong></font>Tipo: </label>
+							<select name="tipo_email" id="tipo_email" autofocus="autofocus"></select>
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="usuario"><font color="red"><strong>*</strong></font>Usuario: </label>
+							<input class="required input_txt" type="text" name="usuario" id="usuario" autofocus="autofocus">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="password"><font color="red"><strong>*</strong></font>Contraseña: </label>
+							<input class="required input_txt" type="password" name="password" id="password" autofocus="autofocus">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop" id="servidorEntrada"></div> 
+					<div class="row-fluid margentop" id="servidorSalida"></div>
+					<div class="row-fluid margentop" id="conexionSegura"></div>
+
+
+				
+			
+			</div> <!-- .modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar
+				</button>
+
+				<button type="submit" class="btn btn-success">Guardar</button>
+			</div>
+
+
+			</div>
+		</div>
+		<?= form_close(); ?>
+	</div>
+	
+
+	<!-- MODAL ENVIAR EMAIL -->
+	<div id="modalEnviar" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+					</button>
+					<h1 class="modal-title"> <i class=" fa fa-envelope fa-lg"></i> Enviar email</h1>
+				</div>
+			<div class="modal-body">
+				
+					<?= form_open_multipart('usuarios/enviar_email',array('class'=>'frm-prosp form-horizontal','id' => 'frmenviaremail')); ?>	
+
+					<div class="row-fluid">
+						<div class="span12">	
+							<label class="lab" for="destinatario"><font color="red"><strong>*</strong></font>Para: </label>
+							<input class="required input_txt" type="text" name="destinatario" id="destinatario" autofocus="autofocus">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="copia">CC: </label>
+							<input class="input_txt" type="text" name="copia" id="copia">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="copiaoculta">CCO: </label>
+							<input class="input_txt" type="text" name="copiaoculta" id="copiaoculta">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="asunto">Asunto: </label>
+							<input class="input_txt" type="text" name="asunto" id="asunto">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">	
+							<label class="lab" for="asunto">Adjuntar archivo: </label>
+							<input class="input_txt" type="file" name="userfile" id="userfile">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">
+							<textarea class="editorEmail"></textarea>
+						</div>
+					</div>
+				
+			
+			</div> <!-- .modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar
+				</button>
+
+				<button type="submit" class="btn btn-success">Enviar</button>
+			</div>
+
+
+			</div>
+		</div>
+		<?= form_close(); ?>
+	</div>	
+
+	<!-- MODAL IMPORTAR -->
+	<div id="modalImportar" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+					</button>
+					<h1 class="modal-title"> <i class=" fa fa-download fa-lg"></i> Importar prospectos</h1>
+				</div>
+			<div class="modal-body">
+				
+				<?= form_open_multipart('herramientas/importar_prospectos',array('class'=>'frmconfemail form-horizontal','id' => 'frmconfemail')); ?>	
+
+					<div class="row-fluid">
+						<div class="span12">		
+							<p class="lead">El archivo a exportar tiene que estar en <strong>formato CSV</strong></p>
+							<input class="input_txt" type="file" name="userfile" id="userfile">
+						</div>
+					</div> <!--.row-fluid -->
+
+					<div class="row-fluid margentop">
+						<div class="span12">
+						<span class="label label-info"><strong>Cualquier duda contacta a tu coordinador.</strong></span>
+						</div>
+					</div>	
+			
+			</div> <!-- .modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+				<button type="submit" class="btn btn-success">Importar</button>
+			</div>
+
+
+			</div>
+		</div>
+			<?= form_close(); ?>
+	</div>		
 			
 
 		<footer>
@@ -319,10 +490,10 @@
 			<script src="<?= base_url('js/bootstrap.min.js')?>"></script> 
 			<script src="<?= base_url('js/timepicker.min.js')?>"></script>
 			<script src="<?= base_url('js/myjs.js')?>"></script>
+			
 
 	
 		</footer>
 	</body>
-
 
 </html>

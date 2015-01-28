@@ -56,6 +56,29 @@ class Model_Usuarios extends CI_Model{
 
     }
 
+    /*Se obtiene el listado de los tipos de email que se puedes
+    configurar (gmail, hotmail, corporativo)*/
+
+    public function obtener_tipo_email()
+      {
+        $query = $this->db->query('SELECT * FROM tipo_email'); 
+        $arreglo = array();
+
+        if($query->num_rows() > 0)
+        {
+           foreach($query->result() as $registro)
+           {
+
+            $arreglo[] = array(
+                'id_tipo_email'=> $registro->id_tipo_email,
+                'tipo_email' => $registro->tipo_email
+              );    
+           }
+        }
+            $json = json_encode($arreglo);
+            echo $json;              
+      }
+
 
 
 }

@@ -525,6 +525,7 @@ class Administracion extends CI_Controller {
 		redirect('home/index');
 	}
 
+	
 
 }//Fin de la Clase
 
